@@ -182,6 +182,20 @@
     color:var(--highlight); 
     margin-bottom:12px;
   }
+
+  /* --- New Style for Circular Image --- */
+  .profile-img {
+    width: 120px; /* Set a fixed size */
+    height: 120px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover;
+    margin: 15px auto 25px; /* Center it and add space */
+    display: block;
+    border: 4px solid var(--highlight);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  /* ------------------------------------- */
+
   footer{
     text-align:center;
     padding:20px;
@@ -268,7 +282,14 @@
 </section>
 
 <section class="section">
-  <h2>🙋 About Me</h2>
+  <h2>About Me</h2>
+  <!-- Added the circular profile image here -->
+  <img 
+    src="https://i.imgur.com/ZLSmivr.jpeg" 
+    alt="Sayyed Aarif Hussain Profile Photo" 
+    class="profile-img"
+    onerror="this.onerror=null;this.src='https://placehold.co/120x120/6b7280/ffffff?text=S.A.H'"
+  >
   <p>
     Hi! I’m **Sayyed Aarif Hussain**, currently pursuing a Diploma in Civil Engineering. Along with my passion for construction, design, and infrastructure, I have a deep interest in technology, website development, and creating digital tools that make student life easier.
     <br><br>
@@ -314,13 +335,40 @@
       const docEl = document.documentElement;
       const iconEl = document.getElementById('theme-icon');
       if (docEl.getAttribute("data-theme") === "dark") {
+          docEl.setAttribute("data-theme","dark"); // Ensure dark theme is applied if previously set
           iconEl.textContent = '☀️';
       } else {
+          docEl.setAttribute("data-theme","light"); // Ensure light theme is applied if previously set
           iconEl.textContent = '🌙';
       }
+      
+      // Persist theme choice across sessions (Optional, but good practice)
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+        document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+      }
   };
+  
+  // Updated theme toggle to use localStorage for persistence
+  function toggleTheme(){
+    const bodyEl = document.body;
+    const iconEl = document.getElementById('theme-icon');
+    const currentTheme = bodyEl.getAttribute("data-theme");
+    let newTheme = "light";
+
+    if(currentTheme === "dark"){
+      newTheme = "light";
+      iconEl.textContent = '🌙';
+    } else {
+      newTheme = "dark";
+      iconEl.textContent = '☀️';
+    }
+    
+    bodyEl.setAttribute("data-theme", newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
 </script>
 
 </body>
 </html>
-
