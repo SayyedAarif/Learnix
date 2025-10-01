@@ -153,6 +153,28 @@
     transition: color 0.2s ease;
   }
   .contact-box a:hover{text-decoration:underline; opacity: 0.8;}
+  
+  /* Contribution form styles */
+  .form-section{
+    max-width:800px;
+    margin:40px auto;
+    padding:20px;
+    background: var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.05);
+  }
+  .form-section h2{
+    text-align:center;
+    color:var(--highlight);
+    margin-bottom:20px;
+  }
+  iframe{
+    width:100%;
+    height:800px;
+    border:none;
+    border-radius:8px;
+  }
 </style>
 </head>
 <body data-theme="light">
@@ -192,11 +214,21 @@
   <h1>Contact <span class="highlight">Learnix</span></h1>
   <p>Have any questions, feedback, or collaboration ideas? Get in touch with us through the following platforms:</p>
 </header>
+
 <section class="contact-box">
   <a href="mailto:sayyedaarif001@gmail.com">📩 Email: sayyedaarif001@gmail.com</a>
   <a href="https://instagram.com/sayyed_aariff" target="_blank">📷 Instagram: @sayyed_aariff</a>
   <a href="#" target="_blank">🐦 Twitter: @learnix_official</a>
   <a href="https://www.linkedin.com/in/aarif-hussain-77a907253" target="_blank">💼 LinkedIn: Aarif Hussain</a>
+</section>
+
+<!-- Contribution Form Section -->
+<section class="form-section">
+  <h2>📚 Contribute Your Notes</h2>
+  <p style="text-align:center;">Upload your study materials, notes, or assignments using the form below. Together, we make learning easier!</p>
+  
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSevJCfg8laiHwIwCHYAvgYl5X4DDLm42X39BYSYklKdS1fZig/viewform?embedded=true" 
+  width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 </section>
 
 <script>
@@ -235,4 +267,3 @@
 
 </body>
 </html>
-
