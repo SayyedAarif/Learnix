@@ -341,7 +341,7 @@
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.body.setAttribute('data-theme', savedTheme);
-        document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '🌔' : '🌒';
       }
   };
   
@@ -354,10 +354,10 @@
 
     if(currentTheme === "dark"){
       newTheme = "light";
-      iconEl.textContent = '🌙';
+      iconEl.textContent = '🌒';
     } else {
       newTheme = "dark";
-      iconEl.textContent = '☀️';
+      iconEl.textContent = '🌔';
     }
     
     bodyEl.setAttribute("data-theme", newTheme);
