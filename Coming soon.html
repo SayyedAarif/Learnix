@@ -224,7 +224,7 @@
   <div class="nav-controls">
     <!-- Theme Toggle Button with Icon -->
     <button class="theme-toggle" aria-label="Toggle Dark/Light Mode" onclick="toggleTheme()">
-      <span id="theme-icon">🌙</span>
+      <span id="theme-icon">🌒</span>
     </button>
 
     <!-- Hamburger Menu Button -->
@@ -276,10 +276,10 @@
 
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌙'; // Moon for dark mode toggle
+      iconEl.textContent = '🌒'; // Moon for dark mode toggle
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '☀️'; // Sun for light mode toggle
+      iconEl.textContent = '🌔'; // Sun for light mode toggle
     }
   }
 
@@ -289,7 +289,7 @@
       const iconEl = document.getElementById('theme-icon');
       const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
       if (iconEl) {
-        iconEl.textContent = (initialTheme === "dark") ? '☀️' : '🌙';
+        iconEl.textContent = (initialTheme === "dark") ? '🌔' : '🌒';
       }
   };
 </script>
