@@ -280,10 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTheme = docEl.getAttribute("data-theme");
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌙'; 
+      iconEl.textContent = '🌒'; 
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '☀️'; 
+      iconEl.textContent = '🌔'; 
     }
   }
 
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial icon based on default theme
   const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
   if (iconEl) {
-    iconEl.textContent = (initialTheme === "dark") ? '☀️' : '🌙';
+    iconEl.textContent = (initialTheme === "dark") ? '🌔' : '🌒';
   }
 });
 
@@ -317,7 +317,7 @@ function toggleMenu(){
   <div class="nav-controls">
     <!-- Theme Toggle Button with Icon -->
     <button class="theme-toggle" aria-label="Toggle Dark/Light Mode">
-      <span id="theme-icon">🌙</span>
+      <span id="theme-icon">🌒</span>
     </button>
     
     <!-- Hamburger Menu Button -->
