@@ -239,7 +239,7 @@
   <div class="nav-controls">
     <!-- Theme Toggle Button with Icon -->
     <button class="theme-toggle" aria-label="Toggle Dark/Light Mode" onclick="toggleTheme()">
-      <span id="theme-icon">🌙</span>
+      <span id="theme-icon">🌒</span>
     </button>
     
     <!-- Hamburger Menu Button -->
@@ -261,8 +261,8 @@
 </nav>
 
 <header>
-  <div class="icon book">📚</div>
-  <div class="icon cap">🎓</div>
+  <div class="icon book"></div>
+  <div class="icon cap"></div>
   <h1>Study Materials</h1>
   <div class="credit"><strong></strong></div>
   <p>Access subject-wise resources including notes, previous year questions, and assignments — all in one place for your diploma journey.</p>
@@ -316,10 +316,10 @@
 
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌙'; // Moon for dark mode toggle
+      iconEl.textContent = '🌒'; // Moon for dark mode toggle
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '☀️'; // Sun for light mode toggle
+      iconEl.textContent = '🌔'; // Sun for light mode toggle
     }
   }
 
@@ -329,9 +329,9 @@
       const iconEl = document.getElementById('theme-icon');
       const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
       if (initialTheme === "dark") {
-          iconEl.textContent = '☀️';
+          iconEl.textContent = '🌔';
       } else {
-          iconEl.textContent = '🌙';
+          iconEl.textContent = '🌒';
       }
   };
 </script>
