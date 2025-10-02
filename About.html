@@ -318,10 +318,10 @@
 
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌙'; // Moon for dark mode toggle
+      iconEl.textContent = '🌒'; // Moon for dark mode toggle
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '☀️'; // Sun for light mode toggle
+      iconEl.textContent = '🌔'; // Sun for light mode toggle
     }
   }
 
@@ -331,10 +331,10 @@
       const iconEl = document.getElementById('theme-icon');
       if (docEl.getAttribute("data-theme") === "dark") {
           docEl.setAttribute("data-theme","dark"); // Ensure dark theme is applied if previously set
-          iconEl.textContent = '☀️';
+          iconEl.textContent = '🌔';
       } else {
           docEl.setAttribute("data-theme","light"); // Ensure light theme is applied if previously set
-          iconEl.textContent = '🌙';
+          iconEl.textContent = '🌒';
       }
       
       // Persist theme choice across sessions (Optional, but good practice)
