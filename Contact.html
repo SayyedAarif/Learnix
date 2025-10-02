@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contact — Learnix</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome CDN for Social Media Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJzL3H17z5qL/n2pA6/f+fQy1xV+g/z+y+vE3rF1B/V2R1X/Fw/Fw/Fw/Fw/Fw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
   /* CSS Variables for theme */
   :root {
@@ -144,7 +146,8 @@
     box-shadow:0 6px 18px rgba(0,0,0,0.05);
   }
   .contact-box a{
-    display:block;
+    display:flex; /* Use flexbox to align icon and text */
+    align-items:center;
     margin:12px 0;
     color:var(--highlight);
     text-decoration:none;
@@ -153,6 +156,15 @@
     transition: color 0.2s ease;
   }
   .contact-box a:hover{text-decoration:underline; opacity: 0.8;}
+
+  /* Style for icons inside contact links */
+  .contact-box a .icon-spacing {
+    font-size: 1.25rem;
+    margin-right: 12px; /* Space between icon and text */
+    color: var(--highlight); /* Ensure icon color matches highlight */
+    width: 25px; /* Give icons a fixed width for alignment */
+    text-align: center;
+  }
   
   /* Contribution form styles */
   .form-section{
@@ -214,10 +226,30 @@
 </header>
 
 <section class="contact-box">
-  <a href="mailto:sayyedaarif001@gmail.com"> Email: sayyedaarif001@gmail.com</a>
-  <a href="https://instagram.com/sayyed_aariff" target="_blank"> Instagram: @sayyed_aariff</a>
-  <a href="https://x.com/SayyedAarif_" target="_blank"> Twitter/X: @Sayyed Aarif</a>
-  <a href="https://www.linkedin.com/in/aarif-hussain-77a907253" target="_blank"> LinkedIn: Aarif Hussain</a>
+  <!-- Email with Icon -->
+  <a href="mailto:sayyedaarif001@gmail.com">
+    <i class="fas fa-envelope icon-spacing"></i> Email: sayyedaarif001@gmail.com
+  </a>
+  
+  <!-- Instagram with Icon -->
+  <a href="https://instagram.com/sayyed_aariff" target="_blank">
+    <i class="fab fa-instagram icon-spacing"></i> Instagram: @sayyed_aariff
+  </a>
+  
+  <!-- Twitter/X with Icon -->
+  <a href="https://x.com/SayyedAarif_" target="_blank">
+    <i class="fab fa-x-twitter icon-spacing"></i> Twitter/X: @Sayyed Aarif
+  </a>
+  
+  <!-- LinkedIn with Icon -->
+  <a href="https://www.linkedin.com/in/aarif-hussain-77a907253" target="_blank">
+    <i class="fab fa-linkedin-in icon-spacing"></i> LinkedIn: Aarif Hussain
+  </a>
+  
+  <!-- WhatsApp with Icon (Placeholder link/number) -->
+  <a href="https://wa.me/919999999999" target="_blank">
+    <i class="fab fa-whatsapp icon-spacing"></i> WhatsApp: Chat with us!
+  </a>
 </section>
 
 <!-- Contribution Form Section -->
@@ -245,9 +277,11 @@
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
       iconEl.textContent = '🌙'; // Moon for dark mode toggle
+      document.body.setAttribute("data-theme", "light"); // Sync body theme if needed
     } else {
       docEl.setAttribute("data-theme","dark");
       iconEl.textContent = '☀️'; // Sun for light mode toggle
+      document.body.setAttribute("data-theme", "dark"); // Sync body theme if needed
     }
   }
 
@@ -255,13 +289,19 @@
   window.onload = function() {
       const docEl = document.documentElement;
       const iconEl = document.getElementById('theme-icon');
-      if (docEl.getAttribute("data-theme") === "dark") {
+      // Check if the body or html tag has the data-theme attribute, default to light
+      const currentTheme = docEl.getAttribute("data-theme") || document.body.getAttribute("data-theme") || "light";
+      
+      if (currentTheme === "dark") {
           iconEl.textContent = '☀️';
+          docEl.setAttribute("data-theme", "dark");
       } else {
           iconEl.textContent = '🌙';
+          docEl.setAttribute("data-theme", "light");
       }
   };
 </script>
 
 </body>
 </html>
+
