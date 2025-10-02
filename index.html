@@ -465,10 +465,10 @@
 
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌔'; // Moon for dark mode toggle
+      iconEl.textContent = '🌒'; // Moon for dark mode toggle
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '🌒'; // Sun for light mode toggle
+      iconEl.textContent = '🌔'; // Sun for light mode toggle
     }
   }
   
@@ -479,9 +479,9 @@
       // Check if data-theme attribute is already set, otherwise default to light
       const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
       if (initialTheme === "dark") {
-          iconEl.textContent = '🌒';
-      } else {
           iconEl.textContent = '🌔';
+      } else {
+          iconEl.textContent = '🌒';
       }
   };
 </script>
