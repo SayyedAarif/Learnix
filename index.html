@@ -354,7 +354,7 @@
   <div class="nav-controls">
     <!-- Theme Toggle Button with Icon -->
     <button class="theme-toggle" aria-label="Toggle Dark/Light Mode" onclick="toggleTheme()">
-      <span id="theme-icon">🌒</span>
+      <span id="theme-icon">🌔</span>
     </button>
     
     <!-- Hamburger Menu Button -->
@@ -379,7 +379,6 @@
   <div class="icon book">📚</div>
   <div class="icon cap">🎓</div>
   <div class="icon scale">📏</div>
-  <div class="icon notes">📖</div>
   <h1>Welcome to <span class="highlight">Learnix</span></h1>
   <div class="credit">by <strong>Sayyed Aarif Hussain</strong></div>
   <p>Your one-stop platform for diploma notes, previous year questions, and assignments — designed to help you and your classmates excel.</p>
@@ -467,10 +466,10 @@
 
     if(currentTheme === "dark"){
       docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌔'; // Moon for dark mode toggle
+      iconEl.textContent = '🌒'; // Moon for dark mode toggle
     } else {
       docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '🌒'; // Sun for light mode toggle
+      iconEl.textContent = '🌔'; // Sun for light mode toggle
     }
   }
   
@@ -481,9 +480,9 @@
       // Check if data-theme attribute is already set, otherwise default to light
       const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
       if (initialTheme === "dark") {
-          iconEl.textContent = '🌒';
-      } else {
           iconEl.textContent = '🌔';
+      } else {
+          iconEl.textContent = '🌒';
       }
   };
 </script>
