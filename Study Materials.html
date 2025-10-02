@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Study Materials — Learnix</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* CSS Variables for theme */
+  :root {
+    --bg-color: #f8fbff;
+    --bg-gradient: linear-gradient(135deg,#f8fbff,#ffffff);
+    --text-color: #1f2937;
+    --card-bg: #fff;
+    --card-border: #e5e7eb;
+    --highlight: #05b6b0;
+    --footer-bg: #f9fafb;
+    --accent: var(--highlight);
+    --muted: #6b7280;
+    --soft-shadow:0 6px 18px rgba(5,22,30,0.05);
+    --radius:12px;
+    --maxw:1000px;
+  }
+
+  [data-theme="dark"] {
+    --bg-color: #0f172a;
+    --bg-gradient: linear-gradient(135deg,#0f172a,#1e293b);
+    --text-color: #f8fafc;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --highlight: #38bdf8;
+    --footer-bg: #111827;
+    --accent: var(--highlight);
+  }
+
+  /* General Body and Container Styles */
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+  }
+
+  /* --- Navigation Bar Styles --- */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .logo-container a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--highlight);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-controls { 
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+  }
+  .theme-toggle, .menu-toggle {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+  }
+  .theme-toggle:hover, .menu-toggle:hover {
+    color: var(--highlight);
+  }
+  .menu-toggle {
+    display: none; 
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  .nav-links a:hover, .nav-links a.active { 
+    color: var(--card-bg);
+    background-color: var(--highlight);
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--card-bg);
+      border-top: 1px solid var(--card-border);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .nav-links.menu-open {
+      display: flex;
+    }
+    .nav-links li {
+      text-align: center;
+      width: 100%;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-links li:last-child {
+      border-bottom: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 15px 20px;
+      border-radius: 0;
+    }
+    .menu-toggle {
+      display: block; 
+    }
+  }
+  /* --- End Navigation Bar Styles --- */
+
+
+  /* Page Specific Styles */
+  header{
+    text-align:center;
+    padding:50px 20px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  h1{
+    font-size:2.5rem;
+    font-weight:700;
+    margin-bottom:6px;
+    letter-spacing:-0.5px;
+    color:var(--accent);
+  }
+  .credit{
+    font-style:italic;
+    color:var(--muted);
+    margin-bottom:10px;
+    font-size:0.95rem;
+  }
+  p{
+    max-width:640px;
+    margin:auto;
+    font-size:1.05rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  /* Animation icons */
+  .icon{
+    position:absolute;
+    font-size:2rem;
+    opacity:0.12;
+    animation:float 6s ease-in-out infinite;
+  }
+  .icon.book{top:15px;left:12%;}
+  .icon.cap{top:55px;right:12%;}
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+  }
+  /* Grid cards */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+    padding:40px 20px 60px;
+    max-width:var(--maxw);
+    margin:auto;
+  }
+  .card{
+    background:var(--card-bg);
+    border-radius:var(--radius);
+    box-shadow:var(--soft-shadow);
+    padding:20px;
+    text-align:center;
+    border:1px solid var(--card-border);
+    transition:all 0.3s ease;
+    cursor:pointer;
+    text-decoration:none;
+    color:var(--text-color);
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.06);
+    border-color:var(--accent);
+  }
+  .card h3{
+    color:var(--accent);
+    margin-bottom:8px;
+    font-size:1.1rem;
+  }
+  footer{
+    text-align:center;
+    padding:20px;
+    background:var(--footer-bg);
+    font-size:0.85rem;
+    color:var(--muted);
+  }
+  .socials a{
+    color:var(--accent);
+    margin:0 8px;
+    text-decoration:none;
+    font-weight:500;
+  }
+  .socials a:hover{text-decoration:underline;}
+</style>
+</head>
+<body data-theme="light">
+
+<nav class="navbar">
+  <div class="logo-container">
+    <a href="index.html">Learnix</a>
+  </div>
+  
+  <div class="nav-controls">
+    <!-- Theme Toggle Button with Icon -->
+    <button class="theme-toggle" aria-label="Toggle Dark/Light Mode" onclick="toggleTheme()">
+      <span id="theme-icon">🌙</span>
+    </button>
+    
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">
+      ☰
+    </button>
+  </div>
+  
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Study Materials.html" class="active">Study Materials</a></li>
+    <li><a href="notes.html">Notes</a></li>
+    <li><a href="pyq.html">PYQs</a></li>
+    <li><a href="assignments.html">Assignments</a></li>
+    <li><a href="E Books.html">E-Books</a></li>
+    <li><a href="Entrance Exam PYQs.html">Entrance Exams</a></li>
+    <li><a href="About.html">About</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+    <li><a href="index.html#coffee">Support Us</a></li> 
+  </ul>
+</nav>
+
+<header>
+  <div class="icon book">📚</div>
+  <div class="icon cap">🎓</div>
+  <h1>Study Materials</h1>
+  <div class="credit"><strong></strong></div>
+  <p>Access subject-wise resources including notes, previous year questions, and assignments — all in one place for your diploma journey.</p>
+</header>
+
+<section class="grid">
+  <!-- Note: Keeping the original links to your external resources -->
+  <a href="https://sites.google.com/view/diplomatehub/study-materials/civil-engineering" class="card">
+    <h3>Civil Engineering</h3>
+    <p>Materials for all major civil engineering topics.</p>
+  </a>
+  <a href="https://sites.google.com/view/diplomatehub/coming-soon" class="card">
+    <h3>Mechanical Engineering</h3>
+    <p>Study resources for core mechanical subjects.</p>
+  </a>
+  <a href="https://sites.google.com/view/diplomatehub/coming-soon" class="card">
+    <h3>Electrical Engineering</h3>
+    <p>Notes, PYQs, and assignments for all EE subjects.</p>
+  </a>
+  <a href="https://sites.google.com/view/diplomatehub/coming-soon" class="card">
+    <h3>Computer Science</h3>
+    <p>Programming, theory, and practical resources.</p>
+  </a>
+  <a href="https://sites.google.com/view/diplomatehub/coming-soon" class="card">
+    <h3>Applied Science & Maths</h3>
+    <p>Fundamentals to strengthen your base.</p>
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 Learnix | Created by <strong>Sayyed Aarif Hussain</strong></p>
+  <div class="socials">
+    <a href="https://instagram.com/sayyed_aariff" target="_blank">Instagram</a>
+    <a href="#" target="_blank">Twitter</a>
+    <a href="#" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // Function to toggle the mobile menu
+  function toggleMenu(){
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('menu-open');
+  }
+
+  // Function to toggle the theme (updated to change the icon as well)
+  function toggleTheme(){
+    const docEl = document.documentElement;
+    const iconEl = document.getElementById('theme-icon');
+    const currentTheme = docEl.getAttribute("data-theme");
+
+    if(currentTheme === "dark"){
+      docEl.setAttribute("data-theme","light");
+      iconEl.textContent = '🌙'; // Moon for dark mode toggle
+    } else {
+      docEl.setAttribute("data-theme","dark");
+      iconEl.textContent = '☀️'; // Sun for light mode toggle
+    }
+  }
+
+  // Set initial icon based on default theme on load
+  window.onload = function() {
+      const docEl = document.documentElement;
+      const iconEl = document.getElementById('theme-icon');
+      const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
+      if (initialTheme === "dark") {
+          iconEl.textContent = '☀️';
+      } else {
+          iconEl.textContent = '🌙';
+      }
+  };
+</script>
+
+</body>
+</html>
