@@ -137,7 +137,7 @@
 
   <!-- Quick Simulation Links -->
   <div class="quick">
-    <a class="primary" href="https://phet.colorado.edu/" target="_blank" rel="noopener">Open Full PhET Website</a>
+    <a class="primary" href="https://phet.colorado.edu/en/simulations/filter?subjects=physics&type=html" target="_blank" rel="noopener">Open Full PhET Website</a>
     <a href="https://phet.colorado.edu/en/simulations/filter?subjects=physics&type=html" target="_blank">Physics Labs</a>
     <a href="https://phet.colorado.edu/en/simulations/filter?subjects=chemistry&type=html" target="_blank">Chemistry Labs</a>
     <a href="https://phet.colorado.edu/en/simulations/filter?subjects=math&type=html" target="_blank">Mathematics Labs</a>
