@@ -1,685 +1,463 @@
-<!doctype html>
-<html lang="en">
+     
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Civil Engineering — Semester-wise Materials | Learnix</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-/* CSS Variables for theme */
-:root {
-  --bg-color: #f8fbff;
-  --bg-gradient: linear-gradient(135deg,#f8fbff,#ffffff);
-  --text-color: #1f2937;
-  --card-bg: #fff;
-  --card-border: #e5e7eb;
-  --highlight: #05b6b0;
-  --footer-bg: #f9fafb;
-  --accent: var(--highlight);
-  --muted: #6b7280;
-  --card-shadow: 0 8px 30px rgba(5,22,30,0.06);
-  --radius: 12px;
-  --maxw: 980px;
-}
-
-[data-theme="dark"] {
-  --bg-color: #0f172a;
-  --bg-gradient: linear-gradient(135deg,#0f172a,#1e293b);
-  --text-color: #f8fafc;
-  --card-bg: #1e293b;
-  --card-border: #334155;
-  --highlight: #38bdf8;
-  --footer-bg: #111827;
-  --accent: var(--highlight);
-}
-
-/* General Body and Container Styles */
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background: var(--bg-gradient);
-  color: var(--text-color);
-  -webkit-font-smoothing:antialiased;
-  transition: all 0.3s ease;
-}
-.wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
-
-
-/* --- Navigation Bar Styles --- */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background: var(--card-bg);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid var(--card-border);
-}
-.logo-container a {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--highlight);
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
-.nav-controls { 
-  display: flex;
-  align-items: center;
-  gap: 15px; 
-}
-.theme-toggle, .menu-toggle {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 5px;
-  transition: color 0.3s ease;
-}
-.theme-toggle:hover, .menu-toggle:hover {
-  color: var(--highlight);
-}
-.menu-toggle {
-  display: none; 
-}
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-}
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-.nav-links a:hover, .nav-links a.active { 
-  color: var(--card-bg);
-  background-color: var(--highlight);
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--card-bg);
-    border-top: 1px solid var(--card-border);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  .nav-links.menu-open {
-    display: flex;
-  }
-  .nav-links li {
-    text-align: center;
-    width: 100%;
-    border-bottom: 1px solid var(--card-border);
-  }
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-  .nav-links a {
-    display: block;
-    padding: 15px 20px;
-    border-radius: 0;
-  }
-  .menu-toggle {
-    display: block; 
-  }
-}
-/* --- End Navigation Bar Styles --- */
-
-
-/* Page Specific Styles */
-header{text-align:center;padding:18px 12px}
-h1{font-size:28px;margin:6px 0;color:var(--accent)}
-.credit{color:var(--muted);font-style:italic;margin-bottom:8px}
-.lead{max-width:820px;margin:8px auto;color:var(--text-color);line-height:1.6;text-align:center}
-
-/* Accordion */
-.accordion{margin-top:18px}
-.accordion-item{
-  background:var(--card-bg);
-  border-radius:var(--radius);
-  margin-bottom:14px;
-  overflow:hidden;
-  border:1px solid var(--card-border);
-  box-shadow:var(--card-shadow);
-  transition: border-color 0.3s ease;
-}
-.accordion-button{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  background:var(--highlight); /* Consistent use of highlight color */
-  color:var(--card-bg);
-  font-weight:700;
-  font-size:1.05rem;
-  border:none;
-  cursor:pointer;
-  text-align:left;
-  transition: opacity 0.2s ease;
-}
-.accordion-button:hover {
-    opacity: 0.9;
-}
-.accordion-button .chev{opacity:0.95;font-size:1.1rem}
-.accordion-panel{
-  padding:14px 18px;
-  display:none;
-  background: var(--card-bg);
-}
-
-/* subject rows */
-.subject-row{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid var(--card-border);
-}
-.subject-row:last-child{border-bottom:none}
-.subject-name{
-  flex:1;
-  font-weight:600;
-  color:var(--text-color);
-  min-width: 160px;
-}
-.actions{
-  display:flex;
-  gap:8px;
-  flex-shrink:0;
-  margin-left:16px;
-  flex-wrap:wrap;
-}
-.btn{
-  padding:8px 12px;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:600;
-  font-size:13px;
-  display:inline-block;
-  cursor:pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.btn-notes{background:var(--highlight); color:var(--card-bg);}
-.btn-assign{background:var(--text-color);color:var(--card-bg);}
-.btn-pyq{background:transparent;border:1px solid var(--highlight); color:var(--highlight);}
-.btn:hover{transform:translateY(-2px); opacity: 0.9;}
-
-/* small label for practical/theory */
-.tag{font-size:12px;color:var(--muted);background:var(--footer-bg);padding:4px 8px;border-radius:999px;border:1px solid var(--card-border);}
-
-/* responsive */
-@media (max-width:780px){
-  .subject-row{flex-direction:column;align-items:flex-start}
-  .actions{width:100%;justify-content:flex-start}
-  .subject-name{margin-bottom:6px}
-  .accordion-button{font-size:1rem;padding:12px}
-}
-footer{
-  margin-top:18px;
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-  padding:18px;
-  background:var(--footer-bg);
-  border-top:1px solid var(--card-border);
-  border-radius:0 0 var(--radius) var(--radius);
-}
-.note{max-width:900px;margin:10px auto;color:var(--muted);font-size:0.95rem}
-</style>
-
-<script>
-/* Simple accordion toggle */
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.accordion-button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const panel = btn.nextElementSibling;
-      const chev = btn.querySelector('.chev');
-      const isOpen = panel.style.display === 'block';
-
-      // Close all and reset chevrons
-      document.querySelectorAll('.accordion-panel').forEach(p => p.style.display = 'none');
-      document.querySelectorAll('.accordion-button .chev').forEach(c => c.textContent = '▾');
-
-      // Toggle chosen
-      if(!isOpen) {
-        panel.style.display = 'block';
-        chev.textContent = '▴';
-         // scroll into view a little on open (mobile friendly)
-        setTimeout(()=> btn.scrollIntoView({behavior:'smooth', block:'start'}), 200);
-      } else {
-        chev.textContent = '▾';
-      }
-    });
-  });
-
-  // Theme toggle initialization and functions
-  const docEl = document.documentElement;
-  const iconEl = document.getElementById('theme-icon');
-
-  function toggleTheme(){
-    const currentTheme = docEl.getAttribute("data-theme");
-    if(currentTheme === "dark"){
-      docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌒'; 
-    } else {
-      docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '🌔'; 
-    }
-  }
-
-  // Attach theme toggle function to the button
-  const themeToggleBtn = document.querySelector('.theme-toggle');
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', toggleTheme);
-  }
-
-  // Set initial icon based on default theme
-  const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
-  if (iconEl) {
-    iconEl.textContent = (initialTheme === "dark") ? '🌔' : '🌒';
-  }
-});
-
-// Function to toggle the mobile menu
-function toggleMenu(){
-  const navLinks = document.getElementById('navLinks');
-  navLinks.classList.toggle('menu-open');
-}
-</script>
-</head>
-<body data-theme="light">
-
-<nav class="navbar">
-  <div class="logo-container">
-    <a href="index.html">Learnix</a>
-  </div>
-  
-  <div class="nav-controls">
-    <!-- Theme Toggle Button with Icon -->
-    <button class="theme-toggle" aria-label="Toggle Dark/Light Mode">
-      <span id="theme-icon">🌒</span>
-    </button>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Engineering Resources | Learnix</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Hamburger Menu Button -->
-    <button class="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">
-      ☰
-    </button>
-  </div>
-  
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="Contact.html">Contact/Contribute</a></li>
-    <li><a href="About.html">About</a></li>
-    <li><a href="Study Materials.html">Study Materials</a></li>
-    <li><a href="E Books.html">E-Books</a></li>
-    <li><a href="Entrance Exam PYQS.html">Entrance Exams PYQ</a></li>
-    <!-- Using anchor link to scroll down to the support section -->
-    <li><a href="#coffee">Support Us</a></li> 
-  </ul>
-</nav>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0ea5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-  <div class="wrap" role="main">
-    <header>
-      <h1>Civil Engineering — Semester-wise Materials</h1>
-      <div class="credit">Organized by <strong>Sayyed Aarif Hussain</strong></div>
-      <p class="lead">Each semester contains subject-wise links for **Notes**, **Assignments** and **PYQs**.</p>
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .subject-card {
+            transition: all 0.3s ease;
+        }
+
+        .subject-card:hover {
+            border-color: #2563eb;
+            transform: translateX(5px);
+        }
+
+        .sticky-side {
+            top: 120px;
+        }
+
+        .section-header {
+            position: sticky;
+            top: 72px;
+            z-index: 30;
+            background: rgba(248, 250, 252, 0.9);
+            backdrop-filter: blur(8px);
+        }
+
+        .dark .section-header {
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+        <div class="flex items-center gap-2">
+            <div class="bg-primary p-2 rounded-lg">
+                <i class="fas fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold text-primary">Learnix</span>
+        </div>
+        <div class="hidden md:flex gap-8 font-medium text-sm">
+            <a href="index.html" class="hover:text-primary dark:text-slate-300 transition-colors">Home</a>
+            <a href="materials.html" class="hover:text-primary dark:text-slate-300 transition-colors">All Branches</a>
+            <a href="about.html" class="hover:text-primary dark:text-slate-300 transition-colors">About</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+            <a href="contact.html" class="hidden md:block bg-primary/10 text-primary px-5 py-2 rounded-full font-bold text-sm hover:bg-primary hover:text-white transition-all">
+                Contribute Notes
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-32 pb-12 px-6 bg-white dark:bg-slate-800/50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+                <nav class="flex text-xs text-slate-400 gap-2 mb-4 font-bold uppercase tracking-widest">
+                    <a href="index.html" class="hover:text-primary">Home</a>
+                    <span>/</span>
+                    <a href="Study Materials.html" class="hover:text-primary">Materials</a>
+                    <span>/</span>
+                    <span class="text-slate-600 dark:text-slate-300">Civil Engineering</span>
+                </nav>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Civil Engineering</h1>
+                <p class="text-slate-500 dark:text-slate-400 mt-2">Comprehensive syllabus-based resources for all 6 semesters.</p>
+            </div>
+        </div>
     </header>
-
-    <div class="accordion">
-
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          1st Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Communication Skills-I <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
+ <main class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+            <div class="sticky sticky-side space-y-2">
+                <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Jump to Semester</p>
+                <a href="#sem1" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 1</a>
+                <a href="#sem2" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 2</a>
+                <a href="#sem3" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 3</a>
+                <a href="#sem4" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 4</a>
+                <a href="#sem5" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 5</a>
+                <a href="#sem6" class="block p-3 rounded-xl hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:text-primary font-medium transition-all">Semester 6</a>
             </div>
-          </div>
+        </aside>
 
-          <div class="subject-row">
-            <div class="subject-name">Applied Physics <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
+        <!-- Content Area -->
+        <div class="flex-grow space-y-20">
 
-          <div class="subject-row">
-            <div class="subject-name">Applied Chemistry <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
+            <!-- Semester 1 -->
+            <section id="sem1" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">01</span>
+                        First Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Communication Skills-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Applied Physics</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Applied Chemistry</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Applied Mathematics-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Applied Mechanics</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-          <div class="subject-row">
-            <div class="subject-name">Applied Mathematics-I <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
+ <!-- Semester 2 -->
+            <section id="sem2" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">02</span>
+                        Second Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Applied Mathematics-II</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Basic Electrical Engineering</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Elements of Mechanical Engg.</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Surveying-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Engineering Drawing-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-          <div class="subject-row">
-            <div class="subject-name">Applied Mechanics <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
+<!-- Semester 3 -->
+            <section id="sem3" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">03</span>
+                        Third Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Building Construction</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Irrigation Engineering</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Surveying - II</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Hydraulics</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Computer Application</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-          <div class="subject-row">
-            <div class="subject-name">Workshop Practice-I <span class="tag">Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-assign" href="#" download>Practical</a>
-            </div>
-          </div>
+ <!-- Semester 4 -->
+            <section id="sem4" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">04</span>
+                        Fourth Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Communication Skills II</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Concrete Technology</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Theory of Structures</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Environmental Engineering-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Construction Materials</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+<!-- Semester 5 -->
+            <section id="sem5" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">05</span>
+                        Fifth Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Soil Mechanics & Foundation Engg.</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Design of R.C.C. Structures-I</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Analysis of Structures</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Surveying – III</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Constr. Management & Accounts</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+ <!-- Semester 6 -->
+            <section id="sem6" class="space-y-6">
+                <div class="section-header py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <span class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center text-sm">06</span>
+                        Sixth Semester
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Transportation Engineering</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Design of Steel Structures</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Estimating & Costing</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Design of R.C.C. Structures-II</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                    <div class="subject-card p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <span class="font-bold text-slate-700 dark:text-slate-200 text-center sm:text-left">Environmental Engineering-II</span>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Notes</button>
+                            <button class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">PYQs</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
-      </div>
+    </main>
 
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          2nd Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Applied Mathematics-II <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Basic Electrical Engineering <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Elements of Mechanical Engineering <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Surveying-I <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Engineering Drawing-I <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          3rd Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Building Construction <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="https://drive.google.com/file/d/1EnUoJv1M-NuUvYfJ2c_8Abq9TVBM3LRx/view?usp=drivesdk" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="https://drive.google.com/file/d/1PjgotfRO7M-D6BnWdDYgHISawe7l9Kg3/view?usp=drivesdk" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Irrigation Engineering <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-pyq" href="https://drive.google.com/file/d/1PjgotfRO7M-D6BnWdDYgHISawe7l9Kg3/view?usp=drivesdk" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Surveying-II <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="https://drive.google.com/file/d/113e11bY1HGZfWkeSQFLuU9-WZgdOFhjg/view?usp=drivesdk" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="https://drive.google.com/file/d/1PjgotfRO7M-D6BnWdDYgHISawe7l9Kg3/view?usp=drivesdk" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Hydraulics <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-practical" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="https://drive.google.com/file/d/1PjgotfRO7M-D6BnWdDYgHISawe7l9Kg3/view?usp=drivesdk" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Computer Applications <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-practical" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="https://drive.google.com/file/d/1PjgotfRO7M-D6BnWdDYgHISawe7l9Kg3/view?usp=drivesdk" download>PYQs</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          4th Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Communication Skills-II <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Concrete Technology <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-practical" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Theory of Structures <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-practical" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Environmental Engineering-I <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-practical" href="#" download>Practical</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Construction Materials <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          5th Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Soil Mechanics & Foundation Engineering <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Design of R.C.C. Structures-I <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Analysis of Structures <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Surveying-III <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Construction Management & Accounts <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-button" type="button">
-          6th Semester
-          <span class="chev">▾</span>
-        </button>
-        <div class="accordion-panel">
-          <div class="subject-row">
-            <div class="subject-name">Transportation Engineering <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Design of Steel Structures <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Estimating & Costing <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Design of R.C.C. Structures-II <span class="tag">Theory</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Environmental Engineering-II <span class="tag">Theory + Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-
-          <div class="subject-row">
-            <div class="subject-name">Project / Industrial Training <span class="tag">Practical</span></div>
-            <div class="actions">
-              <a class="btn btn-notes" href="#" download>Notes</a>
-              <a class="btn btn-assign" href="#" download>Assignments</a>
-              <a class="btn btn-pyq" href="#" download>PYQs</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <footer>
-      © 2025 Learnix | Created by <strong>Sayyed Aarif Hussain</strong>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 text-center text-slate-400 dark:text-slate-500">
+        <p class="text-sm">© 2024 Learnix Civil Hub. Build your future, brick by brick.</p>
     </footer>
-  </div>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Active Sidebar State Logic
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.sticky-side a');
+
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-primary');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-primary');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
