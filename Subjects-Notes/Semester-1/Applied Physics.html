@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Physics | Learnix</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0ea5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .unit-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .unit-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .unit-card.active .unit-content {
+            max-height: 1500px;
+        }
+
+        .unit-card.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .sticky-sidebar {
+            top: 100px;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background-color: #2563eb;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+        <div class="flex items-center gap-2">
+            <div class="bg-primary p-2 rounded-lg shadow-lg">
+                <i class="fas fa-atom text-white text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8 font-medium text-sm">
+            <a href="index.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Home</a>
+            <a href="materials.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Materials</a>
+            <a href="civil.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Resources</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-32 pb-10 px-6 bg-white dark:bg-slate-800/50">
+        <div class="max-w-7xl mx-auto">
+            <!-- Breadcrumb Navigation -->
+            <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <span>/</span>
+                <a href="materials.html" class="hover:text-primary transition-colors">Materials</a>
+                <span>/</span>
+                <span class="text-slate-600 dark:text-slate-300">Applied Physics</span>
+            </nav>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Applied Physics</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-4 text-sm">
+                        <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: PHY-102</span>
+                        <span class="flex items-center gap-1"><i class="far fa-clock"></i> 5 Units</span>
+                        <span class="hidden sm:flex items-center gap-1 text-emerald-500 font-bold uppercase text-[10px]"><i class="fas fa-check-circle"></i> Practical Included</span>
+                    </p>
+                </div>
+                <button class="px-5 py-2.5 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 rounded-xl font-bold text-xs border border-blue-100 dark:border-blue-800 flex items-center gap-2 hover:scale-105 transition-all">
+                    <i class="fas fa-file-download"></i> Full Physics Syllabus
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+        
+        <!-- Left: Unit Accordion Content -->
+        <div class="flex-grow space-y-4">
+            
+            <!-- Unit 1 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm active">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Units and Dimensions</h3>
+                            <p class="text-xs text-slate-400 mt-1">Foundations of Physical Measurement</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">Important Topics:</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                        <i class="fas fa-circle text-[6px] text-primary mt-2"></i> SI Units and Supplementary Units
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                        <i class="fas fa-circle text-[6px] text-primary mt-2"></i> Dimensional Analysis & Applications
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                        <i class="fas fa-circle text-[6px] text-primary mt-2"></i> Error Analysis and Significant Figures
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-primary transition-all group">
+                                    <i class="fas fa-file-pdf text-red-500 text-xl"></i>
+                                    <span class="text-xs font-bold dark:text-slate-300">Handwritten Unit Notes</span>
+                                </a>
+                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-primary transition-all group">
+                                    <i class="fas fa-video text-blue-500 text-xl"></i>
+                                    <span class="text-xs font-bold dark:text-slate-300">Video: Dimension Derivations</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 2 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Force and Motion</h3>
+                            <p class="text-xs text-slate-400 mt-1">Dynamics, Friction and Circular Motion</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8 space-y-4">
+                            <p class="text-sm text-slate-600 dark:text-slate-400">In this unit, we explore how forces affect objects and the mathematical laws of motion.</p>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl text-center">
+                                    <p class="text-[10px] font-bold text-primary uppercase">Topic 1</p>
+                                    <p class="text-xs font-semibold dark:text-white">Scalar & Vectors</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl text-center">
+                                    <p class="text-[10px] font-bold text-primary uppercase">Topic 2</p>
+                                    <p class="text-xs font-semibold dark:text-white">Centripetal Force</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl text-center">
+                                    <p class="text-[10px] font-bold text-primary uppercase">Topic 3</p>
+                                    <p class="text-xs font-semibold dark:text-white">Conservation Law</p>
+                                </div>
+                            </div>
+                            <button class="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold">Solved Numericals PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 3 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Properties of Matter</h3>
+                            <p class="text-xs text-slate-400 mt-1">Elasticity, Viscosity and Surface Tension</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <p class="mt-8 text-center text-slate-500 dark:text-slate-400 text-sm italic">Content for Properties of Matter is currently being updated. Coming soon!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 4 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Heat and Thermodynamics</h3>
+                            <p class="text-xs text-slate-400 mt-1">Transfer of Heat and Thermal Properties</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8 space-y-4">
+                            <h4 class="font-bold text-sm text-primary">Core Concepts:</h4>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-2xl border-l-4 border-primary">
+                                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Study of Conduction, Convection, Radiation, Laws of Thermodynamics, and Specific Heat capacities of gases.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 5 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Optics & Modern Physics</h3>
+                            <p class="text-xs text-slate-400 mt-1">Wave Theory, Lasers and Fiber Optics</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700 text-center py-10">
+                        <i class="fas fa-flask-vial text-slate-200 dark:text-slate-700 text-5xl mb-4"></i>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Laser and Fiber Optic diagrams are under preparation by the technical team.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="lg:w-80 flex-shrink-0">
+            <div class="sticky sticky-sidebar space-y-6">
+                
+                <!-- Subject Stats -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Exam Breakdown</h4>
+                    <div class="space-y-5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-400 dark:text-slate-500 font-bold uppercase">Theory Marks</span>
+                            <span class="text-sm font-bold dark:text-white">75</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-400 dark:text-slate-500 font-bold uppercase">Practical</span>
+                            <span class="text-sm font-bold dark:text-white">25</span>
+                        </div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                            <div class="bg-primary h-full w-[85%]"></div>
+                        </div>
+                        <p class="text-[10px] text-slate-400">Students often score high in Unit 1 and 2 numericals.</p>
+                    </div>
+                </div>
+
+                <!-- Physics Pro-Tip -->
+                <div class="bg-slate-900 dark:bg-black p-8 rounded-[32px] text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
+                    <h4 class="font-bold mb-2 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-amber-400"></i> Exam Tip
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Numerical problems are the key to 90+ marks. Practice dimensional formulas of all physical constants.</p>
+                </div>
+
+                <!-- Quick Action -->
+                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary group transition-all">
+                    <div class="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-upload text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Submit PYQs</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Got an old paper?</p>
+                    </div>
+                </a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-600">
+        <p class="text-xs font-medium uppercase tracking-widest">Learnix Technical Education — Physics Department</p>
+    </footer>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Accordion Logic
+        function toggleUnit(element) {
+            const isActive = element.classList.contains('active');
+            
+            // Close other units
+            document.querySelectorAll('.unit-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Toggle current
+            if (!isActive) {
+                element.classList.add('active');
+            }
+        }
+
+        // Nav shadow on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
