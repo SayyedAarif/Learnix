@@ -1,299 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Coming Soon — Learnix</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Learnix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: '#2563eb',
+                        glass: 'rgba(255, 255, 255, 0.45)',
+                    },
+                    animation: {
+                        'slow-spin': 'spin 15s linear infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'mesh': 'mesh 10s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        mesh: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background: linear-gradient(-45deg, #f8fafc, #eff6ff, #f1f5f9, #e0f2fe);
+            background-size: 400% 400%;
+            animation: mesh 15s ease infinite;
+        }
 
-<!-- Poppins Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
 
-<style>
-  /* CSS Variables for theme */
-  :root {
-    --bg-color: #f8fbff;
-    --bg-gradient: linear-gradient(135deg,#f8fbff,#ffffff);
-    --text-color: #1f2937;
-    --card-bg: #fff;
-    --card-border: #e5e7eb;
-    --highlight: #05b6b0;
-    --footer-bg: #f9fafb;
-    --glow-color: rgba(5, 182, 176, 0.4);
-  }
+        .time-unit {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
 
-  [data-theme="dark"] {
-    --bg-color: #0f172a;
-    --bg-gradient: linear-gradient(135deg,#0f172a,#1e293b);
-    --text-color: #f8fafc;
-    --card-bg: #1e293b;
-    --card-border: #334155;
-    --highlight: #38bdf8;
-    --footer-bg: #111827;
-    --glow-color: rgba(56, 189, 248, 0.4);
-  }
+        .time-value {
+            font-variant-numeric: tabular-nums;
+        }
 
-  /* General Body and Container Styles */
-  body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-color);
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-    transition: all 0.3s ease;
-  }
-  
-  /* --- Navigation Bar Styles (Copied for consistency) --- */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: var(--card-bg);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid var(--card-border);
-  }
-  .logo-container a {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--highlight);
-    text-decoration: none;
-    letter-spacing: -0.5px;
-  }
-  .nav-controls { 
-    display: flex;
-    align-items: center;
-    gap: 15px; 
-  }
-  .theme-toggle, .menu-toggle {
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 5px;
-    transition: color 0.3s ease;
-  }
-  .theme-toggle:hover, .menu-toggle:hover {
-    color: var(--highlight);
-  }
-  .menu-toggle {
-    display: none; 
-  }
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-  }
-  .nav-links a:hover, .nav-links a.active { 
-    color: var(--card-bg);
-    background-color: var(--highlight);
-  }
+        /* Blur style for teased elements */
+        .blurred-unit {
+            filter: blur(5px);
+            opacity: 0.5;
+            user-select: none;
+            pointer-events: none;
+        }
 
-  /* Mobile responsive adjustments */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: var(--card-bg);
-      border-top: 1px solid var(--card-border);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .nav-links.menu-open {
-      display: flex;
-    }
-    .nav-links li {
-      text-align: center;
-      width: 100%;
-      border-bottom: 1px solid var(--card-border);
-    }
-    .nav-links li:last-child {
-      border-bottom: none;
-    }
-    .nav-links a {
-      display: block;
-      padding: 15px 20px;
-      border-radius: 0;
-    }
-    .menu-toggle {
-      display: block; 
-    }
-  }
-  /* --- End Navigation Bar Styles --- */
-
-  /* Coming Soon Content */
-  .main-content {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-  }
-  h1{
-    font-size:3rem;
-    margin-bottom:10px;
-    color:var(--highlight);
-    animation:fadeIn 1.2s ease;
-    font-weight:700;
-  }
-  p{
-    font-size:1.1rem;
-    color:var(--text-color);
-    max-width:500px;
-    line-height:1.6;
-    margin-bottom:30px;
-    animation:fadeIn 2s ease;
-  }
-  .loader-container {
-      position: relative;
-      margin: 30px 0;
-  }
-  .loader{
-    width:70px;
-    height:70px;
-    border:5px solid var(--card-border);
-    border-top:5px solid var(--highlight);
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    box-shadow: 0 0 10px var(--highlight); /* Added glow */
-  }
-  .progress-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.2rem;
-      color: var(--highlight);
-      animation: pulse 2s infinite;
-  }
-  .credit{
-    font-size:0.85rem;
-    color:var(--muted);
-    margin-top:20px;
-  }
-  @keyframes spin{
-    to{transform:rotate(360deg);}
-  }
-  @keyframes fadeIn{
-    from{opacity:0;transform:translateY(10px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-  @keyframes pulse {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  }
-
-  footer {
-    padding: 15px;
-    background: var(--footer-bg);
-    color: var(--muted);
-    font-size: 0.85rem;
-    width: 100%;
-    text-align: center;
-  }
-</style>
+        ::selection {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+    </style>
 </head>
-<body data-theme="light">
+<body class="font-sans text-slate-900 min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden">
 
-<nav class="navbar">
-  <div class="logo-container">
-    <a href="index.html">Learnix</a>
-  </div>
-  
-  <div class="nav-controls">
-    <!-- Theme Toggle Button with Icon -->
-    <button class="theme-toggle" aria-label="Toggle Dark/Light Mode" onclick="toggleTheme()">
-      <span id="theme-icon">🌒</span>
-    </button>
+    <!-- Subtle Decorative Blobs -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100/50 rounded-full blur-[120px] animate-pulse"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-sky-100/50 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s"></div>
 
-    <!-- Hamburger Menu Button -->
-    <button class="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMenu()">
-      ☰
-    </button>
-  </div>
-  
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="Contact.html">Contact</a></li>
-    <li><a href="About.html">About</a></li>
-    <li><a href="Study Materials.html">Study Materials</a></li>
-    <li><a href="E Books.html">E-Books</a></li>
-    <li><a href="Entrance Exam PYQS.html">Entrance Exams PYQ</a></li>
-    <!-- Using anchor link to scroll down to the support section -->
-    <li><a href="#coffee">Support Us</a></li> 
-  </ul>
-</nav>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full p-10 flex justify-between items-center z-50">
+        <div class="flex items-center gap-2 group cursor-pointer">
+            <div class="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">Learnix</span>
+        </div>
+        <a href="index.html" class="text-sm font-medium text-slate-400 hover:text-primary transition-colors flex items-center gap-2 group">
+            <i class="fas fa-long-arrow-alt-left group-hover:-translate-x-1 transition-transform"></i> Return Home
+        </a>
+    </nav>
 
-<div class="main-content">
-    <h1>🚧 Coming Soon!</h1>
-    <p>We're constructing this page with comprehensive resources just for you. Please check back soon!</p>
-    
-    <div class="loader-container">
-        <div class="loader"></div>
-        <span class="progress-icon">🛠️</span>
-    </div>
-    
-    <div class="credit">Thank you for visiting Learnix.</div>
-</div>
+    <!-- Main Section -->
+    <main class="relative z-10 w-full max-w-2xl text-center">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/60 border border-white rounded-full text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-8 shadow-sm">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full animate-ping"></span>
+            Launching Soon
+        </div>
 
-<footer>
-    © 2025 Learnix | Created by <strong>Sayyed Aarif Hussain</strong>
-</footer>
+        <!-- Heading -->
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6">
+            Something <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-sky-500">Elegant</span> is coming.
+        </h1>
+        
+        <p class="text-slate-500 text-lg font-light mb-12 max-w-lg mx-auto leading-relaxed">
+            We are refining the ultimate platform for Diploma students. 
+            A better way to learn is just around the corner.
+        </p>
 
-<script>
-  // Function to toggle the mobile menu
-  function toggleMenu(){
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('menu-open');
-  }
+        <!-- Countdown Container -->
+        <div class="grid grid-cols-4 gap-4 md:gap-8 mb-16 max-w-md mx-auto">
+            <!-- Days (Blurred) -->
+            <div class="time-unit blurred-unit">
+                <span id="days" class="time-value text-3xl md:text-4xl font-bold text-slate-900">00</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Days</span>
+            </div>
+            <!-- Hours (Blurred) -->
+            <div class="time-unit blurred-unit">
+                <span id="hours" class="time-value text-3xl md:text-4xl font-bold text-slate-900">00</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Hours</span>
+            </div>
+            <!-- Minutes (Blurred) -->
+            <div class="time-unit blurred-unit">
+                <span id="minutes" class="time-value text-3xl md:text-4xl font-bold text-slate-900">00</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Mins</span>
+            </div>
+            <!-- Seconds (Normal) -->
+            <div class="time-unit">
+                <span id="seconds" class="time-value text-3xl md:text-4xl font-bold text-slate-900">00</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Secs</span>
+            </div>
+        </div>
 
-  // Function to toggle the theme (updated to change the icon as well)
-  function toggleTheme(){
-    const docEl = document.documentElement;
-    const iconEl = document.getElementById('theme-icon');
-    const currentTheme = docEl.getAttribute("data-theme");
+        <!-- Waitlist Form -->
+        <div class="glass-card p-2 rounded-[24px] max-w-lg mx-auto flex flex-col sm:flex-row gap-2 transition-all hover:shadow-2xl">
+            <input type="email" placeholder="Your email address" 
+                   class="bg-transparent px-6 py-4 flex-grow outline-none text-slate-700 font-medium placeholder:text-slate-400">
+            <button onclick="successFeedback(this)" 
+                    class="bg-slate-900 text-white px-8 py-4 rounded-[18px] font-bold hover:bg-primary hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-slate-900/10">
+                Notify Me
+            </button>
+        </div>
 
-    if(currentTheme === "dark"){
-      docEl.setAttribute("data-theme","light");
-      iconEl.textContent = '🌒'; // Moon for dark mode toggle
-    } else {
-      docEl.setAttribute("data-theme","dark");
-      iconEl.textContent = '🌔'; // Sun for light mode toggle
-    }
-  }
+    </main>
 
-  // Set initial icon based on default theme
-  window.onload = function() {
-      const docEl = document.documentElement;
-      const iconEl = document.getElementById('theme-icon');
-      const initialTheme = docEl.getAttribute("data-theme") || 'light'; 
-      if (iconEl) {
-        iconEl.textContent = (initialTheme === "dark") ? '🌔' : '🌒';
-      }
-  };
-</script>
+    <!-- Footer -->
+    <footer class="fixed bottom-12 w-full flex justify-center gap-8 text-slate-300">
+        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-dribbble"></i></a>
+    </footer>
 
+    <script>
+        // Set target date (30 days from now)
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 30);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function successFeedback(btn) {
+            const original = btn.innerText;
+            btn.innerHTML = '<i class="fas fa-check"></i> Joined';
+            btn.classList.add('!bg-emerald-500');
+            
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.classList.remove('!bg-emerald-500');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
 
