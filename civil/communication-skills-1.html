@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -20,8 +20,17 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#2563eb',
-                        secondary: '#0ea5e9',
+                        primary: '#6366f1', 
+                        secondary: '#4f46e5',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -29,14 +38,14 @@
     </script>
     
     <style>
-        .glass-nav {
+        .glass-header {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .dark .glass-nav {
+        .dark .glass-header {
             background: rgba(15, 23, 42, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -52,7 +61,7 @@
         }
 
         .unit-card.active .unit-content {
-            max-height: 1200px;
+            max-height: 400px;
         }
 
         .unit-card.active .chevron {
@@ -62,368 +71,78 @@
         .sticky-sidebar {
             top: 100px;
         }
-        
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #2563eb;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
     </style>
-<style>
-.lang-btn{
-  padding:6px 14px;
-  border-radius:20px;
-  border:1px solid #e5e7eb;
-  font-size:12px;
-  cursor:pointer;
-}
-.lang-btn.active{
-  background:#2563eb;
-  color:#fff;
-}
-.lang-en{display:block;}
-.lang-hi{display:none;}
-</style>
-
-<script>
-function switchLang(lang){
-  document.querySelectorAll('.lang-en').forEach(e=>e.style.display = lang==='en'?'block':'none');
-  document.querySelectorAll('.lang-hi').forEach(e=>e.style.display = lang==='hi'?'block':'none');
-  document.getElementById('btn-en').classList.toggle('active', lang==='en');
-  document.getElementById('btn-hi').classList.toggle('active', lang==='hi');
-}
-</script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+    <!-- Top Utility Bar (Logo Left, Toggle Right) -->
+    <nav class="fixed top-0 w-full z-50 glass-header px-6 md:px-12 py-4 flex justify-between items-center transition-all">
+        <!-- Learnix Logo (Left) -->
         <div class="flex items-center gap-2">
-            <div class="bg-primary p-2 rounded-lg shadow-lg">
-                <i class="fas fa-graduation-cap text-white text-xl"></i>
+            <div class="bg-primary p-2 rounded-lg shadow-lg shadow-indigo-200 dark:shadow-none">
+                <i class="fas fa-comments text-white text-xl"></i>
             </div>
             <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
         </div>
-        
-        <div class="hidden md:flex gap-8 font-medium text-sm">
-            <a href="index.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Home</a>
-            <a href="materials.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Materials</a>
-            <a href="civil.html" class="nav-link hover:text-primary dark:text-slate-300 transition-colors">Civil Engg.</a>
-        </div>
 
-        <div class="flex items-center gap-4">
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:block"></i>
-            </button>
-        </div>
+        <!-- Theme Toggle Button (Far Right Corner) -->
+        <button id="theme-toggle" class="w-11 h-11 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 active:scale-95 transition-all shadow-sm border border-slate-200 dark:border-slate-700">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
     </nav>
 
     <!-- Header Section -->
-    <header class="pt-32 pb-10 px-6 bg-white dark:bg-slate-800/50">
+    <header class="pt-32 pb-10 px-6 md:px-12 bg-white dark:bg-slate-800/50">
         <div class="max-w-7xl mx-auto">
-            <!-- Breadcrumb Navigation -->
-            <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest">
-                <a href="../index.html" class="hover:text-primary transition-colors">Home</a>
+            <!-- Breadcrumb Navigation Menu -->
+            <nav class="flex flex-wrap text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest animate-fade-in-up">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
                 <span>/</span>
-                <a href="../study-materials.html" class="hover:text-primary transition-colors">Materials</a>
+                <a href="materials.html" class="hover:text-primary transition-colors">Materials</a>
                 <span>/</span>
- <a href="../civil-engineering.html" class="hover:text-primary transition-colors">Civil Engineering</a>
+                <a href="civil.html" class="hover:text-primary transition-colors">Civil Engineering</a>
                 <span>/</span>
                 <span class="text-slate-600 dark:text-slate-300">Communication Skills-I</span>
             </nav>
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Communication Skills-I</h1>
                     <p class="text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-4 text-sm">
-                        <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: DCS-101</span>
+                        <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: CS-101</span>
                         <span class="flex items-center gap-1"><i class="far fa-clock"></i> 5 Units</span>
-                        <span class="hidden sm:flex items-center gap-1 text-emerald-500 font-bold uppercase text-[10px]"><i class="fas fa-check-circle"></i> Complete Syllabus</span>
                     </p>
                 </div>
-                <button class="px-5 py-2.5 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 rounded-xl font-bold text-xs border border-blue-100 dark:border-blue-800 flex items-center gap-2 hover:scale-105 transition-all">
-                    <i class="fas fa-download"></i> Download PDF Syllabus
-                </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row gap-12">
         
-        <!-- Left: Unit Wise Content -->
+        <!-- Unit Accordions (Left) -->
         <div class="flex-grow space-y-4">
             
             <!-- Unit 1 -->
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm active">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Basics of Communication</h3>
-                            <p class="text-xs text-slate-400 mt-1">Understanding the process and importance</p>
+                            <p class="text-xs text-slate-400 mt-1">Definition, Process, Barriers & Types of Communication</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
-                
                 <div class="unit-content">
-                    <!-- ================= LANGUAGE TOGGLE ================= -->
-<div style="display:flex;gap:10px;margin-bottom:24px;">
-  <button id="btn-en" class="lang-btn active" onclick="switchLang('en')">English</button>
-  <button id="btn-hi" class="lang-btn" onclick="switchLang('hi')">Roman Hindi</button>
-</div>
-
-<!-- ================= ENGLISH ================= -->
-<div class="lang-en">
-
-<h2>UNIT – I : Reading Comprehension (For Beginners)</h2>
-
-<h3>1. Introduction to Reading Comprehension</h3>
-<p>
-Reading Comprehension is the ability to read a passage, understand its meaning,
-interpret ideas correctly, and answer questions based on the given text.
-It is one of the most important communication skills because all academic
-learning starts with reading and understanding written material.
-</p>
-
-<p>
-In technical education, students are required to read textbooks, manuals,
-instructions, question papers, and reports. Without proper reading comprehension,
-even simple questions can be misunderstood.
-</p>
-
-<h3>2. Definition of Reading Comprehension</h3>
-<p>
-Reading Comprehension is defined as the process of extracting meaning from a written text.
-It involves understanding vocabulary, sentence structure, ideas, and the overall message
-conveyed by the writer.
-</p>
-
-<h3>3. Objectives of Reading Comprehension</h3>
-<ul>
-  <li>To understand the central idea of a passage</li>
-  <li>To identify supporting details and facts</li>
-  <li>To improve vocabulary and language skills</li>
-  <li>To develop logical and analytical thinking</li>
-  <li>To answer questions accurately in examinations</li>
-</ul>
-
-<h3>4. Importance of Reading Comprehension</h3>
-<p>
-Reading comprehension plays a vital role in academic as well as professional life.
-A student who understands what he reads can perform better in examinations,
-interviews, and practical work.
-</p>
-
-<ul>
-  <li>Helps in understanding textbooks and notes</li>
-  <li>Improves performance in exams and competitive tests</li>
-  <li>Enhances vocabulary and grammar</li>
-  <li>Builds confidence in reading English texts</li>
-  <li>Essential for report writing and documentation</li>
-</ul>
-
-<h3>5. Types of Reading</h3>
-
-<h4>(a) Skimming</h4>
-<p>
-Skimming means reading the passage quickly to get the general idea.
-The reader focuses on headings, first and last sentences, and keywords.
-It is useful when time is limited.
-</p>
-
-<h4>(b) Scanning</h4>
-<p>
-Scanning is used to find specific information such as names, dates, numbers,
-or keywords without reading the entire passage.
-</p>
-
-<h4>(c) Intensive Reading</h4>
-<p>
-Intensive reading involves careful reading of a passage to understand every detail.
-This type of reading is used while studying textbooks or exam-oriented material.
-</p>
-
-<h4>(d) Extensive Reading</h4>
-<p>
-Extensive reading is done for general understanding, knowledge, and enjoyment.
-Newspapers, magazines, and novels are examples.
-</p>
-
-<h3>6. Process of Reading Comprehension</h3>
-<ol>
-  <li>Reading the passage carefully</li>
-  <li>Understanding the meaning of difficult words from context</li>
-  <li>Identifying the main idea</li>
-  <li>Finding supporting details</li>
-  <li>Answering questions logically</li>
-</ol>
-
-<h3>7. Common Difficulties Faced by Beginners</h3>
-<ul>
-  <li>Lack of vocabulary</li>
-  <li>Poor grammar knowledge</li>
-  <li>Reading too fast without understanding</li>
-  <li>Fear of long passages</li>
-  <li>Lack of concentration</li>
-</ul>
-
-<h3>8. How to Improve Reading Comprehension</h3>
-<ul>
-  <li>Read English newspapers daily</li>
-  <li>Practice reading short passages regularly</li>
-  <li>Underline important points</li>
-  <li>Use a dictionary to learn new words</li>
-  <li>Practice comprehension questions</li>
-</ul>
-
-<h3>9. Examination Tips</h3>
-<ul>
-  <li>Read the passage at least twice</li>
-  <li>Do not assume answers</li>
-  <li>Answer only from the given passage</li>
-  <li>Manage time properly</li>
-</ul>
-
-</div>
-
-<!-- ================= ROMAN HINDI ================= -->
-<div class="lang-hi">
-
-<h2>UNIT – I : Reading Comprehension (Beginners ke liye)</h2>
-
-<h3>1. Reading Comprehension ka Introduction</h3>
-<p>
-Reading Comprehension ka matlab hai kisi passage ko padhna,
-uska sahi meaning samajhna aur uske base par questions ke answers dena.
-Ye communication skills ka bahut important part hai.
-</p>
-
-<p>
-Technical education me students ko books, manuals, instructions aur exam papers
-padhne hote hain. Agar comprehension achchi nahi hogi to questions galat samajh
-liye jaate hain.
-</p>
-
-<h3>2. Reading Comprehension ki Definition</h3>
-<p>
-Reading Comprehension wo process hai jisme hum likhe hue text ka meaning nikalte hain.
-Isme vocabulary, sentence structure aur main idea samajhna shamil hota hai.
-</p>
-
-<h3>3. Reading Comprehension ke Objectives</h3>
-<ul>
-  <li>Passage ka main idea samajhna</li>
-  <li>Important points aur facts identify karna</li>
-  <li>Vocabulary aur language improve karna</li>
-  <li>Logical thinking develop karna</li>
-  <li>Exam me sahi answers likhna</li>
-</ul>
-
-<h3>4. Reading Comprehension ki Importance</h3>
-<p>
-Reading comprehension academic aur professional life dono me bahut zaroori hai.
-Jo student achha samajh kar padhta hai wo exams me better perform karta hai.
-</p>
-
-<ul>
-  <li>Books aur notes samajhne me madad</li>
-  <li>Exams aur competitive tests me help</li>
-  <li>Vocabulary aur grammar strong hoti hai</li>
-  <li>English reading ka confidence badhta hai</li>
-</ul>
-
-<h3>5. Reading ke Types</h3>
-
-<h4>(a) Skimming</h4>
-<p>
-Skimming ka matlab hai jaldi padhna taaki overall idea mil jaaye.
-Isme headings aur keywords pe dhyaan diya jata hai.
-</p>
-
-<h4>(b) Scanning</h4>
-<p>
-Scanning ka use specific information jaise date, naam ya number dhundhne ke liye hota hai.
-</p>
-
-<h4>(c) Intensive Reading</h4>
-<p>
-Isme passage ko dhyaan se padhkar har detail samjhi jaati hai.
-Ye exam study ke liye useful hai.
-</p>
-
-<h4>(d) Extensive Reading</h4>
-<p>
-General knowledge aur interest ke liye padhna extensive reading kehlata hai.
-</p>
-
-<h3>6. Reading Comprehension ka Process</h3>
-<ol>
-  <li>Passage dhyaan se padhna</li>
-  <li>Difficult words ka meaning context se samajhna</li>
-  <li>Main idea identify karna</li>
-  <li>Supporting points dhoondhna</li>
-  <li>Questions ka logical answer likhna</li>
-</ol>
-
-<h3>7. Beginners ki Common Problems</h3>
-<ul>
-  <li>Kam vocabulary</li>
-  <li>Grammar ki weakness</li>
-  <li>Jaldi padhna bina samjhe</li>
-  <li>Long passage ka dar</li>
-</ul>
-
-<h3>8. Reading Improve Karne ke Tarike</h3>
-<ul>
-  <li>Roz English newspaper padho</li>
-  <li>Short passages practice karo</li>
-  <li>Important points underline karo</li>
-  <li>New words note karo</li>
-</ul>
-
-<h3>9. Exam Tips</h3>
-<ul>
-  <li>Passage do baar padho</li>
-  <li>Answer guess mat karo</li>
-  <li>Time manage karo</li>
-</ul>
-
-</div>
-                            
-                            <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-[24px] border border-slate-100 dark:border-slate-700 space-y-4">
-                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm italic">Materials Available</h4>
-                                <div class="space-y-3">
-                                    <a href="#" class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-transparent hover:border-primary transition-all group">
-                                        <div class="flex items-center gap-3">
-                                            <i class="fas fa-file-pdf text-red-500 text-lg"></i>
-                                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Unit 01 Handwritten Notes</span>
-                                        </div>
-                                        <i class="fas fa-external-link-alt text-[10px] text-slate-300 group-hover:text-primary"></i>
-                                    </a>
-                                    <a href="#" class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-transparent hover:border-primary transition-all group">
-                                        <div class="flex items-center gap-3">
-                                            <i class="fas fa-play-circle text-blue-500 text-lg"></i>
-                                            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Video: Communication Cycle</span>
-                                        </div>
-                                        <i class="fas fa-external-link-alt text-[10px] text-slate-300 group-hover:text-primary"></i>
-                                    </a>
-                                </div>
-                            </div>
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/cs1-unit1.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 1 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -433,29 +152,21 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Application of Grammar</h3>
-                            <p class="text-xs text-slate-400 mt-1">Nouns, Verbs, Tenses and Punctuation</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Functional Grammar</h3>
+                            <p class="text-xs text-slate-400 mt-1">Parts of Speech, Direct/Indirect Speech & Active/Passive Voice</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-                                <p>Mastering grammar is essential for technical reporting and professional emails.</p>
-                                <ul class="space-y-2">
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-[6px] text-primary"></i> Parts of Speech</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-[6px] text-primary"></i> Active and Passive Voice</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-[6px] text-primary"></i> Tense Usage in Reports</li>
-                                </ul>
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <button class="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold shadow-lg shadow-blue-500/20">View Grammar Cheat Sheet</button>
-                                <button class="w-full py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold">Solved Exercises</button>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/cs1-unit2.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 2 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -465,17 +176,22 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Reading Skills</h3>
-                            <p class="text-xs text-slate-400 mt-1">Comprehension and vocabulary building</p>
+                            <p class="text-xs text-slate-400 mt-1">Comprehension, Skimming, Scanning & Note-making</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
-                    <div class="p-8 pt-0 text-center py-10">
-                        <p class="text-slate-400 dark:text-slate-500 italic text-sm">Study materials for Unit 03 are being uploaded. Check back later!</p>
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/cs1-unit3.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 3 Notes</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -484,17 +200,46 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/40 text-primary dark:text-blue-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Writing Skills</h3>
-                            <p class="text-xs text-slate-400 mt-1">Letter writing, Memos, and Notices</p>
+                            <p class="text-xs text-slate-400 mt-1">Paragraph Writing, Formal Letters & Email Etiquette</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
-                    <div class="p-8 pt-0 text-center py-10">
-                        <p class="text-slate-400 dark:text-slate-500 italic text-sm">Unit 04 Content is currently under review by subject experts.</p>
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/cs1-unit4.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 4 Notes</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 5 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Soft Skills</h3>
+                            <p class="text-xs text-slate-400 mt-1">Listening Skills, Group Discussion & Presentation Skills</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/cs1-unit5.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 5 Notes</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -505,41 +250,44 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
         <aside class="lg:w-80 flex-shrink-0">
             <div class="sticky sticky-sidebar space-y-6">
                 
-                <!-- Insights Card -->
+                <!-- Analytics Card -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm">
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Subject Insights</h4>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Subject Analytics</h4>
                     <div class="space-y-6">
                         <div class="flex justify-between items-center">
-                            <span class="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pass Ratio</span>
-                            <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-[10px] font-bold">High (92%)</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Complexity</span>
+                            <span class="px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg text-[10px] font-bold">Moderate</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest">Exam Weightage</span>
-                            <span class="text-slate-900 dark:text-white font-bold text-sm">100 Marks</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Practical Focus</span>
+                            <span class="text-slate-900 dark:text-white font-bold text-sm">~40% Marks</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-widest">Last Modified</span>
-                            <span class="text-slate-900 dark:text-white font-bold text-sm">Jan 2024</span>
+                        <div class="pt-2">
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[100%]"></div>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-2 italic text-center">Unit 2 & 4 are the highest scoring segments.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Expert Card -->
+                <!-- Pro-Tip Box -->
                 <div class="bg-slate-900 dark:bg-black p-8 rounded-[32px] text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
-                    <h4 class="font-bold mb-2">Need Viva Tips?</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-6">Our senior community can help you prepare for the oral exams and group discussions.</p>
-                    <a href="../coming-soon.html" class="block w-full text-center py-3 bg-primary rounded-xl text-xs font-bold hover:bg-blue-600 transition-all">Ask for Help</a>
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"></div>
+                    <h4 class="font-bold mb-2 flex items-center gap-2 text-sm">
+                        <i class="fas fa-lightbulb text-amber-300"></i> Success Hack
+                    </h4>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Focus on '7 Cs of Communication' in Unit 1. It is a guaranteed question in every semester final exam.</p>
                 </div>
 
-                <!-- Contribute Link -->
-                <a href="../contact.html" class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl hover:border-primary group transition-all">
-                    <div class="w-10 h-10 bg-slate-50 dark:bg-slate-900 text-slate-400 rounded-xl flex items-center justify-center group-hover:bg-blue-50 group-hover:text-primary transition-all">
-                        <i class="fas fa-plus"></i>
+                <!-- Feedback Box -->
+                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary group transition-all">
+                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-primary rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-plus text-sm"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Got better notes?</p>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-300">Contribute Here</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Contributor?</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Upload Your Notes</p>
                     </div>
                 </a>
             </div>
@@ -547,11 +295,11 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
     </main>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-500">
-        <p class="text-xs font-medium tracking-wide">Learnix — Developing professional communication skills for engineers.</p>
+    <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-600">
+        <p class="text-xs font-medium uppercase tracking-widest italic tracking-wider">Learnix Technical Education — Communication Excellence Hub</p>
     </footer>
 
-     <script>
+    <script>
         // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
@@ -568,22 +316,14 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // Accordion Toggle
+        // Accordion Logic
         function toggleUnit(element) {
             const isActive = element.classList.contains('active');
-            
-            // Close all units
-            document.querySelectorAll('.unit-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // If the clicked one wasn't active, open it
-            if (!isActive) {
-                element.classList.add('active');
-            }
+            document.querySelectorAll('.unit-card').forEach(card => card.classList.remove('active'));
+            if (!isActive) element.classList.add('active');
         }
 
-        // Navbar shadow on scroll
+        // Navbar Shadow on Scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 20) {
@@ -595,3 +335,4 @@ General knowledge aur interest ke liye padhna extensive reading kehlata hai.
     </script>
 </body>
 </html>
+
