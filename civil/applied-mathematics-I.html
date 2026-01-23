@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applied Mathematics | Learnix</title>
+    <title>Applied Mathematics-I | Learnix</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
+        // Tailwind Configuration
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -20,9 +21,17 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#2563eb',
-                        secondary: '#0ea5e9',
-                        math: '#7c3aed', // Violet for Mathematics
+                        primary: '#6366f1', 
+                        secondary: '#4f46e5',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -30,14 +39,14 @@
     </script>
     
     <style>
-        .glass-nav {
+        .glass-header {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .dark .glass-nav {
+        .dark .glass-header {
             background: rgba(15, 23, 42, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -53,7 +62,7 @@
         }
 
         .unit-card.active .unit-content {
-            max-height: 1500px;
+            max-height: 400px;
         }
 
         .unit-card.active .chevron {
@@ -63,83 +72,55 @@
         .sticky-sidebar {
             top: 100px;
         }
-        
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #7c3aed;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+    <!-- Top Utility Bar: Logo Left, Toggle Right -->
+    <nav class="fixed top-0 w-full z-50 glass-header px-6 md:px-12 py-4 flex justify-between items-center transition-all">
+        <!-- Learnix Logo -->
         <div class="flex items-center gap-2">
-            <div class="bg-math p-2 rounded-lg shadow-lg shadow-violet-200 dark:shadow-none">
-                <i class="fas fa-calculator text-white text-xl"></i>
+            <div class="bg-primary p-2 rounded-lg shadow-lg shadow-indigo-200 dark:shadow-none">
+                <i class="fas fa-square-root-alt text-white text-xl"></i>
             </div>
-            <span class="text-2xl font-bold text-math tracking-tight">Learnix</span>
-        </div>
-        
-        <div class="hidden md:flex gap-8 font-medium text-sm">
-            <a href="index.html" class="nav-link hover:text-math dark:text-slate-300 transition-colors">Home</a>
-            <a href="materials.html" class="nav-link hover:text-math dark:text-slate-300 transition-colors">Materials</a>
-            <a href="civil.html" class="nav-link hover:text-math dark:text-slate-300 transition-colors">Resources</a>
+            <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
         </div>
 
-        <div class="flex items-center gap-4">
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:block"></i>
-            </button>
-        </div>
+        <!-- Theme Toggle Button (Far Right Corner) -->
+        <button id="theme-toggle" class="w-11 h-11 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 active:scale-95 transition-all shadow-sm border border-slate-200 dark:border-slate-700">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
     </nav>
 
-    <!-- Header & Breadcrumbs -->
-    <header class="pt-32 pb-10 px-6 bg-white dark:bg-slate-800/50">
+    <!-- Header Section -->
+    <header class="pt-32 pb-10 px-6 md:px-12 bg-white dark:bg-slate-800/50">
         <div class="max-w-7xl mx-auto">
-            <!-- Breadcrumb Menu -->
-            <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase  <a href="../index.html" class="hover:text-primary transition-colors">Home</a>
+            <!-- Breadcrumb Navigation Menu -->
+            <nav class="flex flex-wrap text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest animate-fade-in-up">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
                 <span>/</span>
-                <a href="../study-materials.html" class="hover:text-primary transition-colors">Materials</a>
+                <a href="materials.html" class="hover:text-primary transition-colors">Materials</a>
                 <span>/</span>
- <a href="../civil-engineering.html" class="hover:text-primary transition-colors">Civil Engineering</a>
- <span>/</span>
-                <span class="text-slate-600 dark:text-slate-300">Applied Mathematics</span>
+                <a href="civil.html" class="hover:text-primary transition-colors">Civil Engineering</a>
+                <span>/</span>
+                <span class="text-slate-600 dark:text-slate-300">Applied Mathematics-I</span>
             </nav>
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Applied Mathematics</h1>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Applied Mathematics-I</h1>
                     <p class="text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-4 text-sm">
                         <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: MTH-101</span>
                         <span class="flex items-center gap-1"><i class="far fa-clock"></i> 5 Units</span>
-                        <span class="hidden sm:flex items-center gap-1 text-math font-bold uppercase text-[10px]"><i class="fas fa-check-circle"></i> Foundation Subject</span>
                     </p>
                 </div>
-                <button class="px-5 py-2.5 bg-violet-50 dark:bg-violet-900/30 text-math dark:text-violet-400 rounded-xl font-bold text-xs border border-violet-100 dark:border-violet-800 flex items-center gap-2 hover:scale-105 transition-all">
-                    <i class="fas fa-file-pdf"></i> Formula Sheet Download
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Section -->
-    <main class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row gap-12">
         
         <!-- Unit Accordions -->
         <div class="flex-grow space-y-4">
@@ -148,41 +129,21 @@
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm active">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-violet-50 dark:bg-violet-900/40 text-math dark:text-violet-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Algebra</h3>
-                            <p class="text-xs text-slate-400 mt-1">Determinants, Matrices and Partial Fractions</p>
+                            <p class="text-xs text-slate-400 mt-1">Determinants, Matrices, Partial Fractions & Binomial Theorem</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">Key Topics:</h4>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-math mt-2"></i> Cramer's Rule for Linear Equations
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-math mt-2"></i> Matrix Inversion & Rank of Matrix
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-math mt-2"></i> Proper & Improper Partial Fractions
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-math transition-all">
-                                    <i class="fas fa-book text-blue-500 text-xl"></i>
-                                    <span class="text-xs font-bold dark:text-slate-300">Detailed Unit Notes</span>
-                                </a>
-                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-math transition-all">
-                                    <i class="fas fa-lightbulb text-amber-500 text-xl"></i>
-                                    <span class="text-xs font-bold dark:text-slate-300">Matrix Shortcuts Video</span>
-                                </a>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/math1-unit1.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 1 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -192,28 +153,21 @@
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-violet-50 dark:bg-violet-900/40 text-math dark:text-violet-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Trigonometry</h3>
-                            <p class="text-xs text-slate-400 mt-1">Compound, Multiple and Sub-multiple Angles</p>
+                            <p class="text-xs text-slate-400 mt-1">Compound Angles, Multiple Angles & Inverse Functions</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 space-y-6">
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Focus on trigonometric transformations and inverse trigonometric functions which are vital for calculus.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="p-4 bg-violet-50 dark:bg-violet-900/20 rounded-2xl border border-violet-100">
-                                    <h5 class="font-bold text-math text-xs mb-1 uppercase">Transformations</h5>
-                                    <p class="text-[10px] text-slate-500">Sum and product identities formulas.</p>
-                                </div>
-                                <div class="p-4 bg-violet-50 dark:bg-violet-900/20 rounded-2xl border border-violet-100">
-                                    <h5 class="font-bold text-math text-xs mb-1 uppercase">Inverse Ratios</h5>
-                                    <p class="text-[10px] text-slate-500">Principal value and domain properties.</p>
-                                </div>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/math1-unit2.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 2 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -223,18 +177,22 @@
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-violet-50 dark:bg-violet-900/40 text-math dark:text-violet-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Coordinate Geometry</h3>
-                            <p class="text-xs text-slate-400 mt-1">Point, Straight Line and Circles</p>
+                            <p class="text-xs text-slate-400 mt-1">Straight Lines, Circles & General Second Degree Equations</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
-                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700 text-center py-10">
-                        <i class="fas fa-drafting-compass text-slate-200 dark:text-slate-700 text-6xl mb-4"></i>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm italic">Interactive coordinate diagrams for straight lines and circles are currently under review.</p>
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/math1-unit3.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 3 Notes</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,23 +201,21 @@
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-violet-50 dark:bg-violet-900/40 text-math dark:text-violet-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Differential Calculus</h3>
-                            <p class="text-xs text-slate-400 mt-1">Limits, Continuity and Rules of Differentiation</p>
+                            <p class="text-xs text-slate-400 mt-1">Limits, Continuity & Basic Rules of Differentiation</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 space-y-4">
-                            <h4 class="font-bold text-sm text-math uppercase tracking-wider">Differentiation Power-Pack:</h4>
-                            <div class="p-6 bg-slate-900 text-white rounded-2xl font-mono text-xs overflow-x-auto shadow-inner">
-                                <p class="mb-1">d/dx (xⁿ) = n·xⁿ⁻¹</p>
-                                <p class="mb-1">d/dx (Chain Rule): dy/dx = (dy/du) · (du/dx)</p>
-                                <p>d/dx (Product Rule): u·v' + v·u'</p>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/math1-unit4.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 4 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -269,76 +225,79 @@
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-violet-50 dark:bg-violet-900/40 text-math dark:text-violet-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Integral Calculus</h3>
-                            <p class="text-xs text-slate-400 mt-1">Basic Integration and Methods of Substitution</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Statistics</h3>
+                            <p class="text-xs text-slate-400 mt-1">Mean, Median, Mode & Standard Deviation</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
-                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700 text-center py-10">
-                        <i class="fas fa-infinity text-math opacity-10 text-7xl mb-4"></i>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm italic">Standard integration table and definite integral properties will be uploaded by the faculty soon.</p>
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/math1-unit5.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 5 Notes</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Sidebar Section -->
+        <!-- Sidebar -->
         <aside class="lg:w-80 flex-shrink-0">
             <div class="sticky sticky-sidebar space-y-6">
                 
-                <!-- Subject Analysis -->
+                <!-- Subject Analytics -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm">
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Exam Stats</h4>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Subject Analytics</h4>
                     <div class="space-y-6">
                         <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-400 font-bold uppercase">Difficulty</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Complexity</span>
                             <span class="px-3 py-1 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg text-[10px] font-bold">Moderate</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-400 font-bold uppercase">Pass Criteria</span>
-                            <span class="text-slate-900 dark:text-white font-bold text-sm">33 / 100</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Numerical</span>
+                            <span class="text-slate-900 dark:text-white font-bold text-sm">~100% Marks</span>
                         </div>
                         <div class="pt-2">
                             <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-math h-full w-[100%]"></div>
+                                <div class="bg-primary h-full w-[85%]"></div>
                             </div>
-                            <p class="text-[10px] text-slate-400 mt-2 italic">Unit 1 Matrices is the most scoring section.</p>
+                            <p class="text-[10px] text-slate-400 mt-2 italic text-center">Units 1 & 2 form the backbone for semester exams.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Math Trick Card -->
+                <!-- Pro-Tip Box -->
                 <div class="bg-slate-900 dark:bg-black p-8 rounded-[32px] text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-violet-500/20 rounded-full blur-xl"></div>
-                    <h4 class="font-bold mb-2 flex items-center gap-2">
-                        <i class="fas fa-brain text-amber-300"></i> Math Hack
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"></div>
+                    <h4 class="font-bold mb-2 flex items-center gap-2 text-sm">
+                        <i class="fas fa-lightbulb text-amber-300"></i> Math Hack
                     </h4>
-                    <p class="text-xs text-violet-100/70 leading-relaxed mb-6">Master Trigonometry formulas first! Almost 60% of Calculus depends on your command over Trig identities.</p>
-                    <button class="block w-full text-center py-3 bg-white text-math rounded-xl text-xs font-bold hover:bg-violet-50 transition-all">Formula Handbook</button>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Ensure you practice Cramer's Rule in the Algebra section (Unit 1). It is consistently an 8-10 mark numerical problem in the final exams.</p>
                 </div>
 
                 <!-- Feedback Box -->
-                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-math group transition-all">
-                    <div class="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 text-math rounded-xl flex items-center justify-center group-hover:bg-math group-hover:text-white transition-all">
+                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary group transition-all">
+                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-primary rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                         <i class="fas fa-plus text-sm"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Help Fellow Students</p>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Share Solved PYQs</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Contributor?</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Share Your Notes</p>
                     </div>
                 </a>
             </div>
         </aside>
     </main>
 
-    <!-- Simple Footer -->
+    <!-- Footer -->
     <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-600">
-        <p class="text-xs font-medium uppercase tracking-widest">Learnix Technical Education — Mathematics Department</p>
+        <p class="text-xs font-medium uppercase tracking-widest italic tracking-wider">Learnix Technical Education — Mathematics Division</p>
     </footer>
 
     <script>
@@ -346,7 +305,6 @@
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Load saved theme
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         } else {
@@ -362,19 +320,11 @@
         // Accordion Logic
         function toggleUnit(element) {
             const isActive = element.classList.contains('active');
-            
-            // Close all other unit cards first
-            document.querySelectorAll('.unit-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Toggle clicked unit
-            if (!isActive) {
-                element.classList.add('active');
-            }
+            document.querySelectorAll('.unit-card').forEach(card => card.classList.remove('active'));
+            if (!isActive) element.classList.add('active');
         }
 
-        // Nav Shadow on scroll
+        // Navbar Shadow on Scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 20) {
@@ -386,3 +336,4 @@
     </script>
 </body>
 </html>
+
