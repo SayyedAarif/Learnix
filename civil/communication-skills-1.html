@@ -81,6 +81,30 @@
             width: 100%;
         }
     </style>
+<style>
+.lang-btn{
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid #e5e7eb;
+  font-size:12px;
+  cursor:pointer;
+}
+.lang-btn.active{
+  background:#2563eb;
+  color:#fff;
+}
+.lang-en{display:block;}
+.lang-hi{display:none;}
+</style>
+
+<script>
+function switchLang(lang){
+  document.querySelectorAll('.lang-en').forEach(e=>e.style.display = lang==='en'?'block':'none');
+  document.querySelectorAll('.lang-hi').forEach(e=>e.style.display = lang==='hi'?'block':'none');
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-hi').classList.toggle('active', lang==='hi');
+}
+</script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
@@ -157,27 +181,229 @@
                 </button>
                 
                 <div class="unit-content">
-                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm flex items-center gap-2">
-                                    <i class="fas fa-list-ul text-primary"></i> Learning Outcomes
-                                </h4>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        <i class="fas fa-check-circle text-emerald-500 mt-1"></i> Definition and Process of Communication
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        <i class="fas fa-check-circle text-emerald-500 mt-1"></i> Types: Verbal vs Non-Verbal
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        <i class="fas fa-check-circle text-emerald-500 mt-1"></i> Barriers to Effective Communication
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        <i class="fas fa-check-circle text-emerald-500 mt-1"></i> 7 C's of Communication
-                                    </li>
-                                </ul>
-                            </div>
+                    <!-- ================= LANGUAGE TOGGLE ================= -->
+<div style="display:flex;gap:10px;margin-bottom:24px;">
+  <button id="btn-en" class="lang-btn active" onclick="switchLang('en')">English</button>
+  <button id="btn-hi" class="lang-btn" onclick="switchLang('hi')">Roman Hindi</button>
+</div>
+
+<!-- ================= ENGLISH ================= -->
+<div class="lang-en">
+
+<h2>UNIT – I : Reading Comprehension (For Beginners)</h2>
+
+<h3>1. Introduction to Reading Comprehension</h3>
+<p>
+Reading Comprehension is the ability to read a passage, understand its meaning,
+interpret ideas correctly, and answer questions based on the given text.
+It is one of the most important communication skills because all academic
+learning starts with reading and understanding written material.
+</p>
+
+<p>
+In technical education, students are required to read textbooks, manuals,
+instructions, question papers, and reports. Without proper reading comprehension,
+even simple questions can be misunderstood.
+</p>
+
+<h3>2. Definition of Reading Comprehension</h3>
+<p>
+Reading Comprehension is defined as the process of extracting meaning from a written text.
+It involves understanding vocabulary, sentence structure, ideas, and the overall message
+conveyed by the writer.
+</p>
+
+<h3>3. Objectives of Reading Comprehension</h3>
+<ul>
+  <li>To understand the central idea of a passage</li>
+  <li>To identify supporting details and facts</li>
+  <li>To improve vocabulary and language skills</li>
+  <li>To develop logical and analytical thinking</li>
+  <li>To answer questions accurately in examinations</li>
+</ul>
+
+<h3>4. Importance of Reading Comprehension</h3>
+<p>
+Reading comprehension plays a vital role in academic as well as professional life.
+A student who understands what he reads can perform better in examinations,
+interviews, and practical work.
+</p>
+
+<ul>
+  <li>Helps in understanding textbooks and notes</li>
+  <li>Improves performance in exams and competitive tests</li>
+  <li>Enhances vocabulary and grammar</li>
+  <li>Builds confidence in reading English texts</li>
+  <li>Essential for report writing and documentation</li>
+</ul>
+
+<h3>5. Types of Reading</h3>
+
+<h4>(a) Skimming</h4>
+<p>
+Skimming means reading the passage quickly to get the general idea.
+The reader focuses on headings, first and last sentences, and keywords.
+It is useful when time is limited.
+</p>
+
+<h4>(b) Scanning</h4>
+<p>
+Scanning is used to find specific information such as names, dates, numbers,
+or keywords without reading the entire passage.
+</p>
+
+<h4>(c) Intensive Reading</h4>
+<p>
+Intensive reading involves careful reading of a passage to understand every detail.
+This type of reading is used while studying textbooks or exam-oriented material.
+</p>
+
+<h4>(d) Extensive Reading</h4>
+<p>
+Extensive reading is done for general understanding, knowledge, and enjoyment.
+Newspapers, magazines, and novels are examples.
+</p>
+
+<h3>6. Process of Reading Comprehension</h3>
+<ol>
+  <li>Reading the passage carefully</li>
+  <li>Understanding the meaning of difficult words from context</li>
+  <li>Identifying the main idea</li>
+  <li>Finding supporting details</li>
+  <li>Answering questions logically</li>
+</ol>
+
+<h3>7. Common Difficulties Faced by Beginners</h3>
+<ul>
+  <li>Lack of vocabulary</li>
+  <li>Poor grammar knowledge</li>
+  <li>Reading too fast without understanding</li>
+  <li>Fear of long passages</li>
+  <li>Lack of concentration</li>
+</ul>
+
+<h3>8. How to Improve Reading Comprehension</h3>
+<ul>
+  <li>Read English newspapers daily</li>
+  <li>Practice reading short passages regularly</li>
+  <li>Underline important points</li>
+  <li>Use a dictionary to learn new words</li>
+  <li>Practice comprehension questions</li>
+</ul>
+
+<h3>9. Examination Tips</h3>
+<ul>
+  <li>Read the passage at least twice</li>
+  <li>Do not assume answers</li>
+  <li>Answer only from the given passage</li>
+  <li>Manage time properly</li>
+</ul>
+
+</div>
+
+<!-- ================= ROMAN HINDI ================= -->
+<div class="lang-hi">
+
+<h2>UNIT – I : Reading Comprehension (Beginners ke liye)</h2>
+
+<h3>1. Reading Comprehension ka Introduction</h3>
+<p>
+Reading Comprehension ka matlab hai kisi passage ko padhna,
+uska sahi meaning samajhna aur uske base par questions ke answers dena.
+Ye communication skills ka bahut important part hai.
+</p>
+
+<p>
+Technical education me students ko books, manuals, instructions aur exam papers
+padhne hote hain. Agar comprehension achchi nahi hogi to questions galat samajh
+liye jaate hain.
+</p>
+
+<h3>2. Reading Comprehension ki Definition</h3>
+<p>
+Reading Comprehension wo process hai jisme hum likhe hue text ka meaning nikalte hain.
+Isme vocabulary, sentence structure aur main idea samajhna shamil hota hai.
+</p>
+
+<h3>3. Reading Comprehension ke Objectives</h3>
+<ul>
+  <li>Passage ka main idea samajhna</li>
+  <li>Important points aur facts identify karna</li>
+  <li>Vocabulary aur language improve karna</li>
+  <li>Logical thinking develop karna</li>
+  <li>Exam me sahi answers likhna</li>
+</ul>
+
+<h3>4. Reading Comprehension ki Importance</h3>
+<p>
+Reading comprehension academic aur professional life dono me bahut zaroori hai.
+Jo student achha samajh kar padhta hai wo exams me better perform karta hai.
+</p>
+
+<ul>
+  <li>Books aur notes samajhne me madad</li>
+  <li>Exams aur competitive tests me help</li>
+  <li>Vocabulary aur grammar strong hoti hai</li>
+  <li>English reading ka confidence badhta hai</li>
+</ul>
+
+<h3>5. Reading ke Types</h3>
+
+<h4>(a) Skimming</h4>
+<p>
+Skimming ka matlab hai jaldi padhna taaki overall idea mil jaaye.
+Isme headings aur keywords pe dhyaan diya jata hai.
+</p>
+
+<h4>(b) Scanning</h4>
+<p>
+Scanning ka use specific information jaise date, naam ya number dhundhne ke liye hota hai.
+</p>
+
+<h4>(c) Intensive Reading</h4>
+<p>
+Isme passage ko dhyaan se padhkar har detail samjhi jaati hai.
+Ye exam study ke liye useful hai.
+</p>
+
+<h4>(d) Extensive Reading</h4>
+<p>
+General knowledge aur interest ke liye padhna extensive reading kehlata hai.
+</p>
+
+<h3>6. Reading Comprehension ka Process</h3>
+<ol>
+  <li>Passage dhyaan se padhna</li>
+  <li>Difficult words ka meaning context se samajhna</li>
+  <li>Main idea identify karna</li>
+  <li>Supporting points dhoondhna</li>
+  <li>Questions ka logical answer likhna</li>
+</ol>
+
+<h3>7. Beginners ki Common Problems</h3>
+<ul>
+  <li>Kam vocabulary</li>
+  <li>Grammar ki weakness</li>
+  <li>Jaldi padhna bina samjhe</li>
+  <li>Long passage ka dar</li>
+</ul>
+
+<h3>8. Reading Improve Karne ke Tarike</h3>
+<ul>
+  <li>Roz English newspaper padho</li>
+  <li>Short passages practice karo</li>
+  <li>Important points underline karo</li>
+  <li>New words note karo</li>
+</ul>
+
+<h3>9. Exam Tips</h3>
+<ul>
+  <li>Passage do baar padho</li>
+  <li>Answer guess mat karo</li>
+  <li>Time manage karo</li>
+</ul>
+
+</div>
                             
                             <div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-[24px] border border-slate-100 dark:border-slate-700 space-y-4">
                                 <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm italic">Materials Available</h4>
