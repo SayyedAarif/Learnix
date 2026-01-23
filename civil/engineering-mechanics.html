@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Mechanics | Learnix</title>
+    <title>Applied Mechanics | Learnix</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
-        // Tailwind Configuration for Dark Mode and Themes
+        // Tailwind Configuration: Setup Indigo theme and Dark Mode
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -21,9 +21,17 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#2563eb',
-                        secondary: '#0ea5e9',
-                        mechanics: '#6366f1', // Indigo color for Mechanics
+                        primary: '#6366f1', 
+                        secondary: '#4f46e5',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -31,20 +39,20 @@
     </script>
     
     <style>
-        /* Navbar Glassmorphism */
-        .glass-nav {
+        /* Modern Glassmorphism Header */
+        .glass-header {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .dark .glass-nav {
+        .dark .glass-header {
             background: rgba(15, 23, 42, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Accordion Animations */
+        /* Unit Accordion Transitions */
         .unit-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -56,304 +64,249 @@
         }
 
         .unit-card.active .unit-content {
-            max-height: 1500px;
+            max-height: 400px;
         }
 
         .unit-card.active .chevron {
             transform: rotate(180deg);
         }
 
-        /* Sticky Sidebar positioning */
         .sticky-sidebar {
             top: 100px;
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #6366f1;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
         }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+    <!-- Top Utility Bar: Logo (Left) & Toggle (Far Right) -->
+    <nav class="fixed top-0 w-full z-50 glass-header px-6 md:px-12 py-4 flex justify-between items-center transition-all">
+        <!-- Learnix Logo -->
         <div class="flex items-center gap-2">
-            <div class="bg-mechanics p-2 rounded-lg shadow-lg shadow-indigo-200 dark:shadow-none">
+            <div class="bg-primary p-2 rounded-lg shadow-lg shadow-indigo-200 dark:shadow-none">
                 <i class="fas fa-tools text-white text-xl"></i>
             </div>
-            <span class="text-2xl font-bold text-mechanics tracking-tight">Learnix</span>
-        </div>
-        
-        <div class="hidden md:flex gap-8 font-medium text-sm">
-            <a href="index.html" class="nav-link hover:text-mechanics dark:text-slate-300 transition-colors">Home</a>
-            <a href="materials.html" class="nav-link hover:text-mechanics dark:text-slate-300 transition-colors">Materials</a>
-            <a href="civil.html" class="nav-link hover:text-mechanics dark:text-slate-300 transition-colors">Branches</a>
+            <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
         </div>
 
-        <div class="flex items-center gap-4">
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:block"></i>
-            </button>
-        </div>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="w-11 h-11 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 active:scale-95 transition-all shadow-sm border border-slate-200 dark:border-slate-700">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
     </nav>
 
-    <!-- Header & Breadcrumbs -->
-    <header class="pt-32 pb-10 px-6 bg-white dark:bg-slate-800/50">
+    <!-- Header Section: Specific Breadcrumbs -->
+    <header class="pt-32 pb-10 px-6 md:px-12 bg-white dark:bg-slate-800/50">
         <div class="max-w-7xl mx-auto">
-            <!-- Breadcrumb Menu -->
-            <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest">
-                <a href="../index.html" class="hover:text-primary transition-colors">Home</a>
+            <!-- Breadcrumb Navigation Menu -->
+            <nav class="flex flex-wrap text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-4 font-bold uppercase tracking-widest animate-fade-in-up">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
                 <span>/</span>
-                <a href="../study-materials.html" class="hover:text-primary transition-colors">Materials</a>
+                <a href="materials.html" class="hover:text-primary transition-colors">Materials</a>
                 <span>/</span>
- <a href="../civil-engineering.html" class="hover:text-primary transition-colors">Civil Engineering</a>
- <span>/</span>
-                <span class="text-slate-600 dark:text-slate-300">Engineering Mechanics</span>
+                <a href="civil.html" class="hover:text-primary transition-colors">Civil Engineering</a>
+                <span>/</span>
+                <span class="text-slate-600 dark:text-slate-300">Applied Mechanics</span>
             </nav>
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Engineering Mechanics</h1>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Applied Mechanics</h1>
                     <p class="text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-4 text-sm">
-                        <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: MCH-201</span>
+                        <span class="flex items-center gap-1"><i class="far fa-folder"></i> Code: MEC-101</span>
                         <span class="flex items-center gap-1"><i class="far fa-clock"></i> 5 Units</span>
-                        <span class="hidden sm:flex items-center gap-1 text-indigo-500 font-bold uppercase text-[10px]"><i class="fas fa-calculator"></i> Numerical Intensive</span>
                     </p>
                 </div>
-                <button class="px-5 py-2.5 bg-indigo-50 dark:bg-indigo-900/30 text-mechanics dark:text-indigo-400 rounded-xl font-bold text-xs border border-indigo-100 dark:border-indigo-800 flex items-center gap-2 hover:scale-105 transition-all">
-                    <i class="fas fa-file-waveform"></i> Formula Cheat Sheet
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Section -->
-    <main class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row gap-12">
         
-        <!-- Unit Wise Content (Accordions) -->
+        <!-- Unit Accordions (Left Column) -->
         <div class="flex-grow space-y-4">
             
-            <!-- Unit 1: Basics & Force Systems -->
+            <!-- Unit 1 -->
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm active">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-mechanics dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">01</div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Force Systems & Basics</h3>
-                            <p class="text-xs text-slate-400 mt-1">Fundamental Laws and Coplanar Forces</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Basics & Laws of Forces</h3>
+                            <p class="text-xs text-slate-400 mt-1">Resolution, Composition & Parallelogram Law of Forces</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="space-y-4">
-                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-sm">Core Topics:</h4>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-mechanics mt-2"></i> Parallelogram Law of Forces
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-mechanics mt-2"></i> Resolution and Composition of Forces
-                                    </li>
-                                    <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                                        <i class="fas fa-circle text-[6px] text-mechanics mt-2"></i> Lami's Theorem with Solved Problems
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="flex flex-col gap-3">
-                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-mechanics transition-all">
-                                    <i class="fas fa-file-pdf text-red-500 text-xl"></i>
-                                    <span class="text-xs font-bold dark:text-slate-300">Unit 01 Handwritten Notes</span>
-                                </a>
-                                <a href="#" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-4 hover:border-mechanics transition-all">
-                                    <i class="fas fa-play text-indigo-500 text-xl"></i>
-                                    <span class="text-xs font-bold dark:text-slate-300">Video: Force Resolution Methods</span>
-                                </a>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/mech-unit1.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 1 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Unit 2: Equilibrium & Friction -->
+            <!-- Unit 2 -->
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-mechanics dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">02</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Moments & Couples</h3>
+                            <p class="text-xs text-slate-400 mt-1">Varignon's Theorem, Parallel Forces & Lever Principles</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
+                </button>
+                <div class="unit-content">
+                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
+                        <div class="mt-8">
+                            <a href="notes/mech-unit2.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 2 Notes</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 3 -->
+            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Equilibrium & Friction</h3>
-                            <p class="text-xs text-slate-400 mt-1">Free Body Diagrams and Laws of Friction</p>
+                            <p class="text-xs text-slate-400 mt-1">Lami's Theorem, Free Body Diagrams & Laws of Friction</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 space-y-6">
-                            <p class="text-sm text-slate-600 dark:text-slate-400">The primary focus of this unit is understanding equilibrium conditions and solving complex ladder and wedge friction problems.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800">
-                                    <h5 class="font-bold text-indigo-600 text-xs mb-1 uppercase">Ladder Friction</h5>
-                                    <p class="text-[10px] text-slate-500">Calculating reactions at walls and floors.</p>
-                                </div>
-                                <div class="p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800">
-                                    <h5 class="font-bold text-indigo-600 text-xs mb-1 uppercase">FBD Construction</h5>
-                                    <p class="text-[10px] text-slate-500">Simplifying multi-body systems for analysis.</p>
-                                </div>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/mech-unit3.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 3 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Unit 3: Centroid & Moment of Inertia -->
+            <!-- Unit 4 -->
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-mechanics dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">03</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
                         <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Centroid & Moment of Inertia</h3>
-                            <p class="text-xs text-slate-400 mt-1">Center of Gravity and Geometric Properties</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Centroid & Center of Gravity</h3>
+                            <p class="text-xs text-slate-400 mt-1">Geometrical Shapes, Composite Areas & Moment of Inertia basics</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 text-center py-10">
-                            <i class="fas fa-shapes text-slate-200 dark:text-slate-700 text-6xl mb-4"></i>
-                            <p class="text-slate-500 dark:text-slate-400 text-sm italic">Step-by-step solutions for Centroids of composite areas (I-sections, T-sections) will be uploaded shortly.</p>
+                        <div class="mt-8">
+                            <a href="notes/mech-unit4.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 4 Notes</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Unit 4: Simple Lifting Machines -->
+            <!-- Unit 5 -->
             <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
                 <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
                     <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-mechanics dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">04</div>
+                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-primary dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white">Simple Lifting Machines</h3>
-                            <p class="text-xs text-slate-400 mt-1">Efficiency, VR, and Mechanical Advantage</p>
+                            <p class="text-xs text-slate-400 mt-1">Law of Machine, Efficiency & Mechanical Advantage</p>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
                 </button>
                 <div class="unit-content">
                     <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700">
-                        <div class="mt-8 space-y-4">
-                            <h4 class="font-bold text-sm text-mechanics uppercase tracking-wider">Essential Formulas:</h4>
-                            <div class="p-6 bg-slate-900 text-white rounded-2xl font-mono text-xs overflow-x-auto shadow-inner">
-                                <p class="mb-1">MA = Load / Effort</p>
-                                <p class="mb-1">Efficiency = (MA / VR) * 100</p>
-                                <p>Law of Machine: P = mW + C</p>
-                            </div>
+                        <div class="mt-8">
+                            <a href="notes/mech-unit5.pdf" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-4 p-5 bg-indigo-600 text-white rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none font-bold">
+                                <i class="fas fa-file-pdf text-xl"></i>
+                                <span>Download Unit 5 Notes</span>
+                            </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit 5: Dynamics -->
-            <div class="unit-card bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
-                <button onclick="toggleUnit(this.parentElement)" class="w-full p-6 md:p-8 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
-                    <div class="flex items-center gap-6">
-                        <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/40 text-mechanics dark:text-indigo-400 rounded-2xl flex items-center justify-center font-bold text-lg">05</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Dynamics (Kinematics & Kinetics)</h3>
-                            <p class="text-xs text-slate-400 mt-1">Laws of Motion, Work, Power & Energy</p>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down text-slate-300 transition-transform duration-300 chevron"></i>
-                </button>
-                <div class="unit-content">
-                    <div class="p-8 pt-0 border-t border-slate-50 dark:border-slate-700 text-center py-10">
-                        <i class="fas fa-running text-mechanics opacity-10 text-7xl mb-4"></i>
-                        <p class="text-slate-500 dark:text-slate-400 text-sm italic">D'Alembert's Principle and practical applications of Kinetics are currently under technical review.</p>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Right Column Sidebar -->
+        <!-- Right Sidebar (Insights & Stats) -->
         <aside class="lg:w-80 flex-shrink-0">
             <div class="sticky sticky-sidebar space-y-6">
                 
-                <!-- Insights Card -->
+                <!-- Subject Analytics Card -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm">
                     <h4 class="font-bold text-slate-900 dark:text-white mb-6 text-sm uppercase tracking-wider">Subject Analytics</h4>
                     <div class="space-y-6">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-400 font-bold uppercase">Complexity</span>
-                            <span class="px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-[10px] font-bold">Hard</span>
+                            <span class="px-3 py-1 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg text-[10px] font-bold">Moderate</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-400 font-bold uppercase">Numerical Ratio</span>
-                            <span class="text-slate-900 dark:text-white font-bold text-sm">~80% Weightage</span>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Numerical Load</span>
+                            <span class="text-slate-900 dark:text-white font-bold text-sm">~80% Marks</span>
                         </div>
                         <div class="pt-2">
                             <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-mechanics h-full w-[90%]"></div>
+                                <div class="bg-primary h-full w-[85%]"></div>
                             </div>
-                            <p class="text-[10px] text-slate-400 mt-2 italic">Units 2 and 3 carry the highest weightage in examinations.</p>
+                            <p class="text-[10px] text-slate-400 mt-2 italic text-center">Unit 1 & 3 are essential for clearing concepts.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Numerical Tip Card -->
+                <!-- Pro-Tip Box -->
                 <div class="bg-slate-900 dark:bg-black p-8 rounded-[32px] text-white relative overflow-hidden shadow-2xl">
                     <div class="absolute -top-4 -right-4 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl"></div>
-                    <h4 class="font-bold mb-2 flex items-center gap-2">
-                        <i class="fas fa-lightbulb text-amber-300"></i> Exam Strategy
+                    <h4 class="font-bold mb-2 flex items-center gap-2 text-sm">
+                        <i class="fas fa-lightbulb text-amber-300"></i> Mechanics Hack
                     </h4>
-                    <p class="text-xs text-indigo-100/70 leading-relaxed mb-6">Never attempt a numerical without drawing an FBD (Free Body Diagram). Pay close attention to sign conventions for force components.</p>
-                    <a href="contact.html" class="block w-full text-center py-3 bg-white text-mechanics rounded-xl text-xs font-bold hover:bg-indigo-50 transition-all">Ask a Doubt</a>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Always draw a 'Free Body Diagram' (FBD) before solving any equilibrium problem. Visualizing the forces reduces mathematical errors by 60%.</p>
                 </div>
 
-                <!-- Contribution Box -->
-                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-mechanics group transition-all">
-                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-mechanics rounded-xl flex items-center justify-center group-hover:bg-mechanics group-hover:text-white transition-all">
+                <!-- Feedback Box -->
+                <a href="contact.html" class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary group transition-all">
+                    <div class="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/30 text-primary rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                         <i class="fas fa-plus text-sm"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Community Support</p>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Share Your Notes</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Contributor?</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200">Submit Your PDF Notes</p>
                     </div>
                 </a>
             </div>
         </aside>
     </main>
 
-    <!-- Simple Footer -->
+    <!-- Footer Area -->
     <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-600">
-        <p class="text-xs font-medium uppercase tracking-widest italic">Learnix — Engineering success through structured learning.</p>
+        <p class="text-xs font-medium uppercase tracking-widest italic tracking-wider">Learnix Technical Education — Mechanics Hub</p>
     </footer>
 
     <script>
-        // Theme Toggle Logic
+        // Theme Toggle Logic: Handle Light/Dark Mode switch
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Check and Load Saved Theme
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         } else {
@@ -366,22 +319,16 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // Accordion Toggle Function
+        // Accordion Logic: Handle expanding and collapsing units
         function toggleUnit(element) {
             const isActive = element.classList.contains('active');
-            
-            // Close all other unit cards first
-            document.querySelectorAll('.unit-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // If the clicked one wasn't active, open it
-            if (!isActive) {
-                element.classList.add('active');
-            }
+            // Close all other unit cards for a clean UI
+            document.querySelectorAll('.unit-card').forEach(card => card.classList.remove('active'));
+            // If the clicked card was not active, open it
+            if (!isActive) element.classList.add('active');
         }
 
-        // Add Shadow to Navbar on scroll
+        // Navbar shadow effect on scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 20) {
@@ -393,3 +340,4 @@
     </script>
 </body>
 </html>
+
