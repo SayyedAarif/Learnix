@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Brain Games Hub | Learnix</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: { primary: '#6366f1', secondary: '#4f46e5', accent: '#f59e0b' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .game-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .game-card:hover { transform: translateY(-8px); }
+
+        /* Sliding Puzzle Styles */
+        .puzzle-tile {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .puzzle-tile:active { transform: scale(0.95); }
+        .tile-number { background: #6366f1; color: white; }
+        .tile-empty { background: transparent; box-shadow: none; cursor: default; }
+
+        #game-stage { display: none; animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Responsive Grids */
+        .sudoku-input:disabled { background: transparent; color: #1e293b; font-weight: 800; }
+        .dark .sudoku-input:disabled { color: #f1f5f9; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen">
+
+    <!-- Top Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass-nav px-4 md:px-12 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-2">
+            <div class="bg-primary p-2 rounded-xl shadow-lg">
+                <i class="fas fa-brain text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-black text-primary tracking-tighter uppercase">Learnix Games</span>
+        </div>
+        <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 border border-slate-200 dark:border-slate-700 hover:scale-110 transition-all">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="pt-24 pb-12 px-4 max-w-6xl mx-auto">
+        
+        <!-- Selection Menu (Game Cards) -->
+        <div id="selection-menu" class="space-y-12">
+            <div class="text-center space-y-4">
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">Brain <span class="text-primary italic">Gymnasium.</span></h1>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">Boost your concentration and logical thinking with our curated technical games.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sliding Puzzle Card (New) -->
+                <div onclick="startGame('puzzle')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
+                    <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-primary group-hover:text-white transition-all"><i class="fas fa-puzzle-piece"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Master Puzzle</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Sliding number challenge. Arrange them in order to win.</p>
+                </div>
+
+                <div onclick="startGame('sudoku')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
+                    <div class="w-14 h-14 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-emerald-500 group-hover:text-white transition-all"><i class="fas fa-table-cells"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Zen Sudoku</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Pure number placement deduction logic.</p>
+                </div>
+
+                <div onclick="startGame('mines')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
+                    <div class="w-14 h-14 bg-sky-50 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-sky-500 group-hover:text-white transition-all"><i class="fas fa-bomb"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Deep Mines</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Flag the bombs and clear the safe field.</p>
+                </div>
+
+                <div onclick="startGame('memory')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
+                    <div class="w-14 h-14 bg-rose-50 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-rose-500 group-hover:text-white transition-all"><i class="fas fa-clone"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Memory Flip</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Challenge your visual memory recall speed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Stage (Active View) -->
+        <div id="game-stage" class="hidden">
+            <button onclick="exitGame()" class="mb-6 flex items-center gap-2 text-primary font-bold text-sm hover:gap-4 transition-all">
+                <i class="fas fa-arrow-left"></i> Menu par wapas jayein
+            </button>
+
+            <!-- Master Puzzle Stage -->
+            <div id="puzzle-view" class="hidden max-w-sm mx-auto">
+                <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-[40px] shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-black">Master Puzzle</h2>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold uppercase text-slate-400">Moves</p>
+                            <p id="puzzle-moves" class="text-xl font-black text-primary">0</p>
+                        </div>
+                    </div>
+                    <div id="puzzle-grid" class="grid grid-cols-4 gap-2 bg-slate-100 dark:bg-slate-700 p-2 rounded-2xl shadow-inner"></div>
+                    <div class="mt-8">
+                        <button onclick="initPuzzle()" class="w-full py-4 bg-primary text-white rounded-2xl font-bold text-sm shadow-xl shadow-indigo-500/20">Shuffle Board</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sudoku Stage -->
+            <div id="sudoku-view" class="hidden max-w-sm mx-auto">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-[40px] shadow-lg border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-xl font-bold mb-6">Zen Sudoku</h2>
+                    <div id="sudoku-grid" class="grid grid-cols-9 bg-slate-900 border-2 border-slate-900 gap-[1px]"></div>
+                    <div class="mt-6 flex flex-col gap-2">
+                        <button onclick="checkSudoku()" class="w-full py-4 bg-primary text-white rounded-2xl font-bold text-sm">Verify Result</button>
+                        <button onclick="generateSudoku()" class="w-full py-4 bg-slate-100 dark:bg-slate-700 rounded-2xl font-bold text-sm">New Game</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minesweeper Stage -->
+            <div id="mines-view" class="hidden max-w-sm mx-auto">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-[40px] shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold">Deep Mines</h2>
+                        <span id="mine-count" class="font-bold text-red-500">10 💣</span>
+                    </div>
+                    <div id="mines-grid" class="grid grid-cols-8 gap-1 bg-slate-200 dark:bg-slate-700 p-1 rounded-xl mx-auto"></div>
+                </div>
+            </div>
+
+            <!-- Memory Stage -->
+            <div id="memory-view" class="hidden max-w-md mx-auto">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-[40px] shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold">Memory Flip</h2>
+                        <span id="mem-moves" class="font-bold text-primary">Moves: 0</span>
+                    </div>
+                    <div id="memory-grid" class="grid grid-cols-4 gap-3"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Global Result Modal -->
+    <div id="game-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-800 p-10 rounded-[40px] text-center max-w-xs w-full shadow-2xl transform scale-90 transition-transform duration-300">
+            <div id="modal-icon" class="text-5xl mb-6">🏆</div>
+            <h3 id="modal-title" class="text-2xl font-black mb-2 leading-tight">Mubarak Ho!</h3>
+            <p id="modal-text" class="text-slate-500 dark:text-slate-400 text-sm mb-10 leading-relaxed"></p>
+            <button onclick="closeModal()" class="w-full py-4 bg-primary text-white rounded-[20px] font-bold shadow-lg hover:scale-[1.02] transition-all">Band Karein</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Core System ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        function startGame(gameId) {
+            document.getElementById('selection-menu').classList.add('hidden');
+            const stage = document.getElementById('game-stage');
+            stage.classList.remove('hidden');
+            stage.style.display = 'block';
+
+            ['puzzle', 'sudoku', 'mines', 'memory'].forEach(id => {
+                const view = document.getElementById(id + '-view');
+                if(view) view.classList.add('hidden');
+            });
+
+            document.getElementById(gameId + '-view').classList.remove('hidden');
+
+            if(gameId === 'puzzle') initPuzzle();
+            if(gameId === 'sudoku') generateSudoku();
+            if(gameId === 'mines') initMines();
+            if(gameId === 'memory') initMemory();
+        }
+
+        function exitGame() {
+            document.getElementById('selection-menu').classList.remove('hidden');
+            document.getElementById('game-stage').style.display = 'none';
+        }
+
+        function showModal(title, text, icon = '🏆') {
+            const modal = document.getElementById('game-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('modal-icon').innerText = icon;
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); modal.children[0].classList.add('scale-100'); }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('game-modal');
+            modal.classList.remove('opacity-100');
+            modal.children[0].classList.remove('scale-100');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // --- Master Puzzle Logic (Sliding 15-Puzzle) ---
+        let puzzleState = [], puzzleMoves = 0;
+        function initPuzzle() {
+            puzzleState = [...Array(15).keys()].map(i => i + 1);
+            puzzleState.push(null); // Empty slot
+            // Shuffle
+            for (let i = puzzleState.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [puzzleState[i], puzzleState[j]] = [puzzleState[j], puzzleState[i]];
+            }
+            puzzleMoves = 0;
+            document.getElementById('puzzle-moves').innerText = puzzleMoves;
+            renderPuzzle();
+        }
+
+        function renderPuzzle() {
+            const grid = document.getElementById('puzzle-grid');
+            grid.innerHTML = '';
+            puzzleState.forEach((val, idx) => {
+                const tile = document.createElement('div');
+                tile.className = `puzzle-tile ${val ? 'tile-number' : 'tile-empty'}`;
+                tile.innerText = val || '';
+                tile.onclick = () => moveTile(idx);
+                grid.appendChild(tile);
+            });
+        }
+
+        function moveTile(idx) {
+            const emptyIdx = puzzleState.indexOf(null);
+            const canMove = (
+                (idx === emptyIdx - 1 && emptyIdx % 4 !== 0) || // Left
+                (idx === emptyIdx + 1 && (emptyIdx + 1) % 4 !== 0) || // Right
+                (idx === emptyIdx - 4) || // Top
+                (idx === emptyIdx + 4)    // Bottom
+            );
+
+            if (canMove) {
+                [puzzleState[idx], puzzleState[emptyIdx]] = [puzzleState[emptyIdx], puzzleState[idx]];
+                puzzleMoves++;
+                document.getElementById('puzzle-moves').innerText = puzzleMoves;
+                renderPuzzle();
+                checkPuzzleWin();
+            }
+        }
+
+        function checkPuzzleWin() {
+            const winState = [...Array(15).keys()].map(i => i + 1);
+            winState.push(null);
+            if (JSON.stringify(puzzleState) === JSON.stringify(winState)) {
+                showModal("Fabulous!", `Aapne puzzle ko ${puzzleMoves} moves mein solve kiya!`, '🥇');
+            }
+        }
+
+        // --- Sudoku Logic ---
+        function generateSudoku() {
+            const grid = document.getElementById('sudoku-grid'); grid.innerHTML = '';
+            const pattern = [5,3,0,0,7,0,0,0,0,6,0,0,1,9,5,0,0,0,0,9,8,0,0,0,0,6,0,8,0,0,0,6,0,0,0,3,4,0,0,8,0,3,0,0,1,7,0,0,0,2,0,0,0,6,0,6,0,0,0,0,2,8,0,0,0,0,4,1,9,0,0,5,0,0,0,0,8,0,0,7,9];
+            pattern.forEach(v => {
+                const input = document.createElement('input');
+                input.type = 'number'; input.className = "w-full aspect-square text-center text-lg bg-white dark:bg-slate-800 dark:text-white outline-none focus:bg-indigo-50 dark:focus:bg-indigo-900 transition-colors";
+                if(v !== 0) { input.value = v; input.disabled = true; input.style.fontWeight = "800"; }
+                grid.appendChild(input);
+            });
+        }
+        function checkSudoku() { showModal("Logic Check", "Aapka logic sahi disha mein ja raha hai. Isay poora karein!", '🧠'); }
+
+        // --- Deep Mines Logic ---
+        let minesBoard = [], minesCountTotal = 10, minesRevealed = 0;
+        function initMines() {
+            const grid = document.getElementById('mines-grid'); grid.innerHTML = '';
+            minesBoard = Array(64).fill(0); minesRevealed = 0;
+            let placed = 0;
+            while(placed < minesCountTotal){
+                let r = Math.floor(Math.random()*64);
+                if(minesBoard[r] !== 'M') { minesBoard[r] = 'M'; placed++; }
+            }
+            for(let i=0; i<64; i++){
+                if(minesBoard[i] === 'M') continue;
+                let c = 0; const r = Math.floor(i/8), cl = i%8;
+                for(let x=-1; x<=1; x++) for(let y=-1; y<=1; y++){
+                    const nr = r+x, ncl = cl+y;
+                    if(nr>=0 && nr<8 && ncl>=0 && ncl<8 && minesBoard[nr*8+ncl]==='M') c++;
+                }
+                minesBoard[i] = c;
+            }
+            minesBoard.forEach((v, i) => {
+                const cell = document.createElement('div');
+                cell.className = "w-full aspect-square bg-slate-300 dark:bg-slate-600 rounded cursor-pointer hover:bg-slate-400 flex items-center justify-center font-bold text-xs";
+                cell.onclick = () => revealMine(cell, i);
+                grid.appendChild(cell);
+            });
+        }
+        function revealMine(el, idx) {
+            if(el.dataset.revealed) return;
+            const val = minesBoard[idx];
+            if(val === 'M') { 
+                el.innerHTML = '💣'; el.className = "w-full aspect-square bg-red-500 text-white rounded flex items-center justify-center";
+                showModal("BOOM!", "Afsos! Aapne bomb ko touch kar diya.", '💥'); initMines();
+            } else {
+                el.innerText = val === 0 ? '' : val;
+                el.className = "w-full aspect-square bg-white dark:bg-slate-800 rounded flex items-center justify-center shadow-inner text-primary";
+                el.dataset.revealed = true; minesRevealed++;
+                if(val === 0) {
+                    const r = Math.floor(idx/8), cl = idx%8;
+                    for(let x=-1; x<=1; x++) for(let y=-1; y<=1; y++){
+                        const nr = r+x, ncl = cl+y;
+                        if(nr>=0 && nr<8 && ncl>=0 && ncl<8) {
+                            const nIdx = nr*8+ncl;
+                            const neighbor = document.getElementById('mines-grid').children[nIdx];
+                            if(!neighbor.dataset.revealed) revealMine(neighbor, nIdx);
+                        }
+                    }
+                }
+                if(minesRevealed === (64 - minesCountTotal)) showModal("Winner!", "Pura field clear ho gaya!", '🎖️');
+            }
+        }
+
+        // --- Memory Match Logic ---
+        let memIcons = ['🚀','💎','💡','🔥','🌈','🎸','⚽','🍎'], flipped = [], memMoves = 0;
+        function initMemory() {
+            const grid = document.getElementById('memory-grid'); grid.innerHTML = '';
+            const deck = [...memIcons, ...memIcons].sort(() => Math.random()-0.5);
+            memMoves = 0; flipped = []; document.getElementById('mem-moves').innerText = `Moves: 0`;
+            deck.forEach(icon => {
+                const card = document.createElement('div');
+                card.className = "aspect-square bg-slate-200 dark:bg-slate-700 rounded-2xl flex items-center justify-center text-2xl cursor-pointer hover:scale-105 transition-all shadow-sm";
+                card.innerHTML = `<i class="fas fa-question text-slate-400"></i>`;
+                card.onclick = () => {
+                    if(flipped.length === 2 || card.dataset.done) return;
+                    card.innerText = icon; card.className = "aspect-square bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center text-2xl shadow-lg border-2 border-primary";
+                    flipped.push({card, icon});
+                    if(flipped.length === 2){
+                        memMoves++; document.getElementById('mem-moves').innerText = `Moves: ${memMoves}`;
+                        if(flipped[0].icon === flipped[1].icon){
+                            flipped.forEach(f => f.card.dataset.done = true); flipped = [];
+                            if(document.querySelectorAll('[data-done]').length === 16) showModal("Genius!", `Matching complete in ${memMoves} moves.`, '🎨');
+                        } else {
+                            setTimeout(() => {
+                                flipped.forEach(f => { f.card.innerHTML = `<i class="fas fa-question text-slate-400"></i>`; f.card.className = "aspect-square bg-slate-200 dark:bg-slate-700 rounded-2xl flex items-center justify-center text-2xl cursor-pointer shadow-sm"; });
+                                flipped = [];
+                            }, 700);
+                        }
+                    }
+                };
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
