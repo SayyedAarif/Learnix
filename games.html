@@ -86,6 +86,15 @@
     <!-- Main Content Area -->
     <main class="pt-24 pb-12 px-4 max-w-6xl mx-auto">
         
+        <!-- Breadcrumb Navigation (Centered and Simplified) -->
+        <nav class="flex items-center justify-center text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-8 font-bold uppercase tracking-widest animate-fade-in px-2">
+            <a href="index.html" class="hover:text-primary transition-colors flex items-center gap-1.5">
+                <i class="fas fa-home text-[8px]"></i> Home
+            </a>
+            <span class="opacity-30">/</span>
+            <span class="text-slate-600 dark:text-slate-300">Brain Games Hub</span>
+        </nav>
+
         <!-- Selection Menu (Game Cards) -->
         <div id="selection-menu" class="space-y-12">
             <div class="text-center space-y-4">
@@ -94,25 +103,28 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Sliding Puzzle Card (New) -->
+                <!-- Master Puzzle Card -->
                 <div onclick="startGame('puzzle')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
                     <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-primary group-hover:text-white transition-all"><i class="fas fa-puzzle-piece"></i></div>
                     <h3 class="text-xl font-bold mb-2">Master Puzzle</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Sliding number challenge. Arrange them in order to win.</p>
                 </div>
 
+                <!-- Sudoku Card -->
                 <div onclick="startGame('sudoku')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
                     <div class="w-14 h-14 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-emerald-500 group-hover:text-white transition-all"><i class="fas fa-table-cells"></i></div>
                     <h3 class="text-xl font-bold mb-2">Zen Sudoku</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Pure number placement deduction logic.</p>
                 </div>
 
+                <!-- Mines Card -->
                 <div onclick="startGame('mines')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
                     <div class="w-14 h-14 bg-sky-50 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-sky-500 group-hover:text-white transition-all"><i class="fas fa-bomb"></i></div>
                     <h3 class="text-xl font-bold mb-2">Deep Mines</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Flag the bombs and clear the safe field.</p>
                 </div>
 
+                <!-- Memory Card -->
                 <div onclick="startGame('memory')" class="game-card group p-6 bg-white dark:bg-slate-800 rounded-[32px] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl cursor-pointer">
                     <div class="w-14 h-14 bg-rose-50 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-rose-500 group-hover:text-white transition-all"><i class="fas fa-clone"></i></div>
                     <h3 class="text-xl font-bold mb-2">Memory Flip</h3>
@@ -124,7 +136,7 @@
         <!-- Game Stage (Active View) -->
         <div id="game-stage" class="hidden">
             <button onclick="exitGame()" class="mb-6 flex items-center gap-2 text-primary font-bold text-sm hover:gap-4 transition-all">
-                <i class="fas fa-arrow-left"></i> Menu
+                <i class="fas fa-arrow-left"></i> Return to Menu
             </button>
 
             <!-- Master Puzzle Stage -->
@@ -164,6 +176,7 @@
                         <span id="mine-count" class="font-bold text-red-500">10 💣</span>
                     </div>
                     <div id="mines-grid" class="grid grid-cols-8 gap-1 bg-slate-200 dark:bg-slate-700 p-1 rounded-xl mx-auto"></div>
+                    <div class="mt-4 text-[10px] text-slate-400 italic">Tip: Tap on a cell to clear it. Find all safe zones.</div>
                 </div>
             </div>
 
@@ -185,9 +198,9 @@
     <div id="game-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
         <div class="bg-white dark:bg-slate-800 p-10 rounded-[40px] text-center max-w-xs w-full shadow-2xl transform scale-90 transition-transform duration-300">
             <div id="modal-icon" class="text-5xl mb-6">🏆</div>
-            <h3 id="modal-title" class="text-2xl font-black mb-2 leading-tight">Mubarak Ho!</h3>
+            <h3 id="modal-title" class="text-2xl font-black mb-2 leading-tight">Well Done!</h3>
             <p id="modal-text" class="text-slate-500 dark:text-slate-400 text-sm mb-10 leading-relaxed"></p>
-            <button onclick="closeModal()" class="w-full py-4 bg-primary text-white rounded-[20px] font-bold shadow-lg hover:scale-[1.02] transition-all">Band Karein</button>
+            <button onclick="closeModal()" class="w-full py-4 bg-primary text-white rounded-[20px] font-bold shadow-lg hover:scale-[1.02] transition-all">Close</button>
         </div>
     </div>
 
@@ -242,12 +255,11 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // --- Master Puzzle Logic (Sliding 15-Puzzle) ---
+        // --- Master Puzzle Logic ---
         let puzzleState = [], puzzleMoves = 0;
         function initPuzzle() {
             puzzleState = [...Array(15).keys()].map(i => i + 1);
-            puzzleState.push(null); // Empty slot
-            // Shuffle
+            puzzleState.push(null);
             for (let i = puzzleState.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [puzzleState[i], puzzleState[j]] = [puzzleState[j], puzzleState[i]];
@@ -272,10 +284,10 @@
         function moveTile(idx) {
             const emptyIdx = puzzleState.indexOf(null);
             const canMove = (
-                (idx === emptyIdx - 1 && emptyIdx % 4 !== 0) || // Left
-                (idx === emptyIdx + 1 && (emptyIdx + 1) % 4 !== 0) || // Right
-                (idx === emptyIdx - 4) || // Top
-                (idx === emptyIdx + 4)    // Bottom
+                (idx === emptyIdx - 1 && emptyIdx % 4 !== 0) || 
+                (idx === emptyIdx + 1 && (emptyIdx + 1) % 4 !== 0) || 
+                (idx === emptyIdx - 4) || 
+                (idx === emptyIdx + 4)
             );
 
             if (canMove) {
@@ -291,7 +303,7 @@
             const winState = [...Array(15).keys()].map(i => i + 1);
             winState.push(null);
             if (JSON.stringify(puzzleState) === JSON.stringify(winState)) {
-                showModal("Fabulous!", `Aapne puzzle ko ${puzzleMoves} moves mein solve kiya!`, '🥇');
+                showModal("Fantastic!", `You solved the puzzle in ${puzzleMoves} moves!`, '🥇');
             }
         }
 
@@ -306,7 +318,7 @@
                 grid.appendChild(input);
             });
         }
-        function checkSudoku() { showModal("Logic Check", "Aapka logic sahi disha mein ja raha hai. Isay poora karein!", '🧠'); }
+        function checkSudoku() { showModal("Logic Check", "Checking your puzzle. The logic looks correct so far!", '🧠'); }
 
         // --- Deep Mines Logic ---
         let minesBoard = [], minesCountTotal = 10, minesRevealed = 0;
@@ -339,7 +351,7 @@
             const val = minesBoard[idx];
             if(val === 'M') { 
                 el.innerHTML = '💣'; el.className = "w-full aspect-square bg-red-500 text-white rounded flex items-center justify-center";
-                showModal("BOOM!", "Afsos! Aapne bomb ko touch kar diya.", '💥'); initMines();
+                showModal("BOOM!", "Oops! You hit a bomb.", '💥'); initMines();
             } else {
                 el.innerText = val === 0 ? '' : val;
                 el.className = "w-full aspect-square bg-white dark:bg-slate-800 rounded flex items-center justify-center shadow-inner text-primary";
@@ -355,7 +367,7 @@
                         }
                     }
                 }
-                if(minesRevealed === (64 - minesCountTotal)) showModal("Winner!", "Pura field clear ho gaya!", '🎖️');
+                if(minesRevealed === (64 - minesCountTotal)) showModal("Winner!", "The whole field has been cleared!", '🎖️');
             }
         }
 
