@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-books Library | Learnix</title>
+    <title>Global Digital Library | Learnix</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -16,12 +16,11 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
                     colors: {
                         primary: '#2563eb',
-                        secondary: '#0ea5e9',
+                        secondary: '#4f46e5',
+                        accent: '#06b6d4',
                     }
                 }
             }
@@ -41,69 +40,58 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .iframe-container {
-            height: calc(100vh - 240px);
-            width: 100%;
-            border-radius: 24px;
+        .library-viewport {
+            height: calc(100vh - 400px);
+            min-height: 550px;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1);
-            background: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .dark .iframe-container {
-            background: #1e293b;
-            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.4);
+        .library-viewport.immersive {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
+            border-radius: 0;
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
 
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #2563eb;
+        .portal-card {
             transition: all 0.3s ease;
-            transform: translateX(-50%);
+            cursor: pointer;
+            border: 2px solid transparent;
         }
-        
-        .nav-link:hover::after {
-            width: 100%;
+
+        .portal-card.active {
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .pulse-timer { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
         <div class="flex items-center gap-2">
-            <div class="bg-primary p-2 rounded-lg">
-                <i class="fas fa-graduation-cap text-white text-xl"></i>
+            <div class="bg-primary p-2 rounded-xl shadow-lg">
+                <i class="fas fa-book-open text-white text-xl"></i>
             </div>
-            <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
+            <span class="text-2xl font-extrabold text-primary tracking-tight">Learnix <span class="text-slate-400 font-light italic">Library</span></span>
         </div>
         
-        <div class="hidden md:flex gap-8 font-medium text-sm">
-            
-        </div>
-
         <div class="flex items-center gap-4">
-            <a href="https://ekumbh.aicte-india.org/allbook.php" target="_blank" class="hidden sm:flex items-center gap-2 text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-wider">
-                <i class="fas fa-external-link-alt"></i> External
-            </a>
-            
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm">
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:rotate-12 transition-all border border-slate-200 dark:border-slate-700">
                 <i class="fas fa-moon dark:hidden"></i>
                 <i class="fas fa-sun hidden dark:block"></i>
             </button>
@@ -111,78 +99,173 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-24 px-4 md:px-8 pb-6 h-screen flex flex-col">
+    <main class="pt-28 pb-12 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
         
-        <!-- Breadcrumb Navigation -->
-        <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-6 font-bold uppercase tracking-widest">
+        <!-- Centered Breadcrumb Navigation -->
+        <nav class="flex items-center justify-center text-[10px] text-slate-400 dark:text-slate-500 gap-3 mb-8 font-bold uppercase tracking-widest">
             <a href="index.html" class="hover:text-primary transition-colors">Home</a>
-            <span>/</span>
-            <span class="text-slate-600 dark:text-slate-300">Digital E-books</span>
+            <i class="fas fa- text-[4px] opacity-30"></i>
+            <span class="text-slate-600 dark:text-slate-300">Official E-Books Hub</span>
         </nav>
 
-        <!-- Header Info -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">Digital <span class="text-primary">E-books</span> Library</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Access 1000+ official Technical Books integrated via AICTE e-Kumbh Portal.</p>
+        <!-- Header -->
+        <div class="text-center mb-10 space-y-3">
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">The Ultimate <span class="text-primary">E-Book</span> Portal</h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-xs md:text-sm">
+                Access official government libraries and global open-access repositories for technical, academic, and classic literature.
+            </p>
+        </div>
+
+        <!-- Portal Switcher Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+            <div onclick="changePortal('eKumbh')" id="nav-eKumbh" class="portal-card active p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm text-center">
+                <i class="fas fa-university text-orange-500 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-tighter">AICTE e-Kumbh</p>
             </div>
-            <div class="flex gap-2">
-                <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold rounded-full border border-emerald-100 dark:border-emerald-800 flex items-center gap-1">
-                    <i class="fas fa-check-circle"></i> Official
-                </span>
-                <span class="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-primary dark:text-blue-400 text-[10px] font-bold rounded-full border border-blue-100 dark:border-blue-800 flex items-center gap-1">
-                    <i class="fas fa-book-open"></i> Free
-                </span>
+            <div onclick="changePortal('NDL')" id="nav-NDL" class="portal-card p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm text-center">
+                <i class="fas fa-flag text-blue-600 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-tighter">NDLI India</p>
+            </div>
+            <div onclick="changePortal('DOAB')" id="nav-DOAB" class="portal-card p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm text-center">
+                <i class="fas fa-globe-americas text-emerald-500 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-tighter">DOAB Global</p>
+            </div>
+            <div onclick="changePortal('Gutenberg')" id="nav-Gutenberg" class="portal-card p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm text-center">
+                <i class="fas fa-feather-alt text-purple-500 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-tighter">Gutenberg</p>
+            </div>
+            <div onclick="changePortal('OpenLib')" id="nav-OpenLib" class="portal-card p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm text-center">
+                <i class="fas fa-archive text-rose-500 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-tighter">Open Library</p>
+            </div>
+        </div>
+
+        <!-- Functional Toolbar -->
+        <div class="flex flex-col md:flex-row gap-4 mb-4">
+            <div class="flex-1 flex items-center gap-4 bg-white dark:bg-slate-800 p-3 px-5 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                <i class="fas fa-stopwatch text-primary pulse-timer"></i>
+                <span id="reading-timer" class="font-mono font-black text-sm md:text-base">00:00:00</span>
+                <div class="h-4 w-[1px] bg-slate-200 mx-2"></div>
+                <button onclick="resetTimer()" class="text-[9px] font-bold uppercase text-slate-400 hover:text-red-500">Reset Session</button>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <a id="direct-link" href="https://ekumbh.aicte-india.org/allbook.php" target="_blank" class="px-5 py-3 bg-slate-900 text-white rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-all">
+                    <i class="fas fa-external-link-alt mr-2"></i> Direct Open
+                </a>
+                <button onclick="toggleImmersive()" class="px-5 py-3 bg-primary text-white rounded-2xl text-[10px] font-bold uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:scale-105 transition-all">
+                    <i class="fas fa-expand-arrows-alt mr-2"></i> Full View
+                </button>
+                <button onclick="reloadLibrary()" class="p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-400 hover:text-primary shadow-sm">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
             </div>
         </div>
 
         <!-- Portal Integration (Iframe) -->
-        <div class="iframe-container flex-grow relative">
-            <!-- Loading Indicator -->
-            <div id="loader" class="absolute inset-0 flex flex-col items-center justify-center bg-white dark:bg-slate-800 z-0">
-                <div class="w-12 h-12 border-4 border-slate-200 dark:border-slate-700 border-t-primary rounded-full animate-spin"></div>
-                <p class="mt-4 text-slate-400 dark:text-slate-500 text-sm font-medium">Loading e-Kumbh Library...</p>
+        <div id="lib-container" class="library-viewport relative border-4 border-white dark:border-slate-800 shadow-2xl bg-white">
+            <!-- Loader -->
+            <div id="loader" class="absolute inset-0 flex flex-col items-center justify-center bg-white dark:bg-slate-800 z-50">
+                <div class="w-12 h-12 border-4 border-slate-100 dark:border-slate-700 border-t-primary rounded-full animate-spin"></div>
+                <p class="mt-6 text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px]">Accessing Secure Portal...</p>
             </div>
             
-            <!-- The Iframe Integration -->
             <iframe 
+                id="library-frame"
                 src="https://ekumbh.aicte-india.org/allbook.php" 
-                title="AICTE e-Kumbh Portal"
+                title="Knowledge Portal"
                 onload="document.getElementById('loader').style.display='none';"
-                class="relative z-10"
                 allowfullscreen>
             </iframe>
+
+            <!-- Floating Back Button (Visible only in Immersive) -->
+            <button id="exit-immersive" onclick="toggleImmersive()" class="hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[110] bg-slate-900 text-white px-10 py-4 rounded-full font-black shadow-2xl hover:bg-red-500 transition-all uppercase text-xs tracking-widest">
+                <i class="fas fa-times mr-2"></i> Exit Immersive Mode
+            </button>
         </div>
 
-        <!-- Footer / Credits -->
-        <div class="mt-4 text-center">
-            <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium italic">
-                © 2026 Learnix — Developed by Sayyed Aarif Hussain
+        <!-- Portal Info Notice -->
+        <div class="mt-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl border border-amber-100 dark:border-amber-800/50 flex items-start gap-3">
+            <i class="fas fa-info-circle text-amber-500 mt-1"></i>
+            <p class="text-[10px] text-amber-700 dark:text-amber-400 leading-relaxed italic">
+                <b>Privacy Note:</b> These portals are official government and non-profit websites. Some portals (like NDLI) may require a separate login on their official site for full access. If a portal doesn't load, use the "Direct Open" button.
             </p>
         </div>
+
     </main>
 
-    <script>
-        // Theme Toggle Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
+    <!-- Footer -->
+    <footer class="py-12 text-center opacity-60">
+        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.4em]">
+            © 2026 Learnix Digital — Open Knowledge Access
+        </p>
+    </footer>
 
-        // Check for saved theme
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            html.classList.add('dark');
-        } else {
-            html.classList.remove('dark');
+    <script>
+        const portals = {
+            eKumbh: "https://ekumbh.aicte-india.org/allbook.php",
+            NDL: "https://www.ndl.gov.in/",
+            DOAB: "https://www.doabooks.org/en/doab",
+            Gutenberg: "https://www.gutenberg.org/",
+            OpenLib: "https://openlibrary.org/"
+        };
+
+        function changePortal(key) {
+            const frame = document.getElementById('library-frame');
+            const loader = document.getElementById('loader');
+            const directLink = document.getElementById('direct-link');
+            
+            // Toggle Card Classes
+            document.querySelectorAll('.portal-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('nav-' + key).classList.add('active');
+
+            // Load new URL
+            loader.style.display = 'flex';
+            frame.src = portals[key];
+            directLink.href = portals[key];
         }
 
+        function toggleImmersive() {
+            const container = document.getElementById('lib-container');
+            const exitBtn = document.getElementById('exit-immersive');
+            container.classList.toggle('immersive');
+            
+            if(container.classList.contains('immersive')) {
+                exitBtn.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                exitBtn.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function reloadLibrary() {
+            const frame = document.getElementById('library-frame');
+            const loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+            frame.contentWindow.location.reload();
+        }
+
+        // Timer Logic
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            let hrs = Math.floor(seconds / 3600);
+            let mins = Math.floor((seconds % 3600) / 60);
+            let secs = seconds % 60;
+            document.getElementById('reading-timer').innerText = 
+                `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }, 1000);
+
+        function resetTimer() { seconds = 0; }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'dark') html.classList.add('dark');
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        // Tab Focus Management
-        window.addEventListener('blur', () => {
-            // Logic if needed when user leaves tab
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
     </script>
 </body>
