@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,12 +16,10 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
                     colors: {
                         primary: '#2563eb',
-                        secondary: '#0ea5e9',
+                        phet: '#ff7e00',
                     }
                 }
             }
@@ -29,215 +27,278 @@
     </script>
     
     <style>
-        /* Glassmorphism Navigation */
         .glass-nav {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .dark .glass-nav {
             background: rgba(15, 23, 42, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        /* Iframe Container Style */
         .lab-viewport {
-            height: calc(100vh - 250px);
-            min-height: 500px;
+            height: 65vh;
+            min-height: 450px;
             width: 100%;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.1);
-            background: #000;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #2563eb;
+            background: #111;
             transition: all 0.3s ease;
-            transform: translateX(-50%);
         }
+        .lab-viewport.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 100;
+            border-radius: 0;
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+        .sim-card { transition: all 0.2s ease; cursor: pointer; }
+        .sim-card.active { border-color: #2563eb; background: rgba(37, 99, 235, 0.05); }
         
-        .nav-link:hover::after {
-            width: 100%;
+        /* Floating Note Animation */
+        #note-saved {
+            animation: fadeInOut 2s ease forwards;
         }
-
-        /* Loading Spinner */
-        .loader {
-            border-top-color: #2563eb;
-            animation: spinner 0.6s linear infinite;
-        }
-
-        @keyframes spinner {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden">
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center transition-all">
+    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
-            <div class="bg-primary p-2 rounded-lg">
-                <i class="fas fa-graduation-cap text-white text-xl"></i>
+            <div class="bg-primary p-2 rounded-lg shadow-lg">
+                <i class="fas fa-microscope text-white text-xl"></i>
             </div>
-            <span class="text-2xl font-bold text-primary tracking-tight">Learnix</span>
+            <span class="text-2xl font-bold text-primary tracking-tight">Learnix <span class="text-slate-400 font-light">Lab</span></span>
         </div>
         
-        <div class="hidden md:flex gap-8 font-medium text-sm">
-            
-        </div>
-
-        <div class="flex items-center gap-4">
-            <a href="https://phet.colorado.edu/en/simulations/magnet-and-compass" target="_blank" class="hidden sm:flex items-center gap-2 text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-wider">
-                <i class="fas fa-expand"></i> External
-            </a>
-            
-            <!-- Theme Toggle Button -->
-            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all shadow-sm border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-3">
+            <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:scale-110 transition-all border border-slate-200 dark:border-slate-700">
                 <i class="fas fa-moon dark:hidden"></i>
                 <i class="fas fa-sun hidden dark:block"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-32 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
-        
-        <!-- Breadcrumb Navigation -->
-        <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 mb-8 font-bold uppercase tracking-widest">
-            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
-            <span>/</span>
-            <a href="study-materials.html" class="hover:text-primary transition-colors">Resources</a>
-            <span>/</span>
-            <span class="text-slate-600 dark:text-slate-300">Virtual Lab</span>
-        </nav>
-
-        <!-- Header Section -->
-        <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <div class="space-y-2">
-                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-primary dark:text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                    <i class="fas fa-flask"></i> Interactive Physics
-                </div>
-                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">Magnet & <span class="text-primary">Compass</span> Lab</h1>
-                <p class="text-slate-500 dark:text-slate-400 max-w-xl">Visualize magnetic fields and understand how a compass interacts with a bar magnet in this interactive simulation.</p>
-            </div>
+    <main class="pt-28 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+        <!-- Breadcrumb & PhET Redirect -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <nav class="flex text-[10px] text-slate-400 dark:text-slate-500 gap-2 font-bold uppercase tracking-widest">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <span>/</span>
+                <span class="text-slate-600 dark:text-slate-300">Virtual Lab</span>
+            </nav>
             
-            <div class="flex gap-3">
-                <div class="bg-white dark:bg-slate-800 px-4 py-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-2">
-                    <i class="fas fa-bolt text-amber-500"></i>
-                    <span class="text-xs font-bold text-slate-600 dark:text-slate-300">PhET Tech</span>
-                </div>
-            </div>
+            <a href="https://phet.colorado.edu/en/simulations/filter?type=html" target="_blank" class="flex items-center gap-3 px-5 py-2 bg-phet text-white rounded-full text-xs font-bold shadow-lg shadow-orange-500/20 hover:scale-105 transition-all">
+                <img src="https://phet.colorado.edu/favicon.ico" class="w-4 h-4 rounded-sm invert" alt="phet">
+                Explore More at PhET Official
+            </a>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <!-- Lab Viewport -->
-            <div class="lg:col-span-3 space-y-6">
-                <div class="lab-viewport relative group border border-slate-200 dark:border-slate-700 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Lab Selection (3 cols) -->
+            <div class="lg:col-span-3 space-y-4">
+                <h3 class="font-bold text-sm text-slate-400 uppercase tracking-widest mb-4">Laboratory Menu</h3>
+                
+                <div id="sim-list" class="space-y-3">
+                    <!-- Sim 1 -->
+                    <div onclick="switchSim('magnet')" id="btn-magnet" class="sim-card active p-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center rounded-xl text-lg">
+                            <i class="fas fa-magnet"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Magnet & Compass</h4>
+                            <p class="text-[10px] text-slate-400">Magnetic Fields</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Sim 2 -->
+                    <div onclick="switchSim('circuit')" id="btn-circuit" class="sim-card p-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-amber-50 dark:bg-amber-900/30 text-amber-600 flex items-center justify-center rounded-xl text-lg">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Circuit Builder</h4>
+                            <p class="text-[10px] text-slate-400">Ohm's Law & DC</p>
+                        </div>
+                    </div>
+
+                    <!-- Sim 3 -->
+                    <div onclick="switchSim('faraday')" id="btn-faraday" class="sim-card p-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-purple-50 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center rounded-xl text-lg">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Faraday's Law</h4>
+                            <p class="text-[10px] text-slate-400">Induction & Flux</p>
+                        </div>
+                    </div>
+
+                    <!-- Sim 4 -->
+                    <div onclick="switchSim('balloons')" id="btn-balloons" class="sim-card p-4 bg-white dark:bg-slate-800 rounded-2xl border-2 border-transparent shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-rose-50 dark:bg-rose-900/30 text-rose-600 flex items-center justify-center rounded-xl text-lg">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Static Electricity</h4>
+                            <p class="text-[10px] text-slate-400">Electron Transfer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-slate-900 text-white rounded-3xl shadow-xl mt-8">
+                    <h4 class="font-bold text-xs uppercase tracking-widest text-primary mb-3">Quick Tutorial</h4>
+                    <p class="text-[11px] text-slate-400 leading-relaxed italic">Drag components from the sidebar inside the lab. Use the sliders to adjust voltage or magnetic strength. Always observe the field lines!</p>
+                </div>
+            </div>
+
+            <!-- Middle Column: Main Viewport (6 cols) -->
+            <div class="lg:col-span-6 space-y-6">
+                <div id="viewport-container" class="lab-viewport relative group border border-slate-200 dark:border-slate-700 shadow-2xl overflow-hidden">
                     <!-- Loader -->
                     <div id="lab-loader" class="absolute inset-0 bg-white dark:bg-slate-900 flex flex-col items-center justify-center z-10 transition-opacity duration-500">
-                        <div class="loader w-12 h-12 border-4 border-slate-200 dark:border-slate-800 rounded-full mb-4"></div>
-                        <p class="text-slate-400 dark:text-slate-500 font-medium text-sm animate-pulse">Initializing Lab Environment...</p>
+                        <div class="w-12 h-12 border-4 border-primary border-t-transparent animate-spin rounded-full mb-4"></div>
+                        <p class="text-slate-400 font-medium text-sm">Setting up Apparatus...</p>
                     </div>
 
-                    <!-- External Iframe -->
-                    <iframe 
-                        src="https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass_all.html" 
-                        allowfullscreen
-                        onload="document.getElementById('lab-loader').style.opacity = '0'; setTimeout(() => { document.getElementById('lab-loader').style.display = 'none'; }, 500);">
-                    </iframe>
+                    <iframe id="lab-frame" src="https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass_all.html" allowfullscreen></iframe>
                 </div>
-                
-                <!-- Lab Toolbar -->
-                <div class="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <button onclick="window.location.reload()" class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm flex items-center gap-2 transition-colors">
-                            <i class="fas fa-sync-alt"></i> Reset
+
+                <!-- Control Bar -->
+                <div class="flex items-center justify-between bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <div class="flex gap-4">
+                        <button onclick="toggleFullscreen()" class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-primary transition-all">
+                            <i class="fas fa-expand"></i> Fullscreen
+                        </button>
+                        <button onclick="reloadSim()" class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-primary transition-all">
+                            <i class="fas fa-sync"></i> Reset
                         </button>
                     </div>
-                    <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium uppercase tracking-widest">Powered by Univ. of Colorado Boulder</p>
+                    <div class="hidden sm:block">
+                        <span class="text-[9px] font-bold text-slate-300 uppercase">Status: Live Environment</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Experiment Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-700">
-                    <h3 class="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-                        <i class="fas fa-list-check text-primary"></i> Lab Tasks
-                    </h3>
-                    <ul class="space-y-4 text-xs text-slate-500 dark:text-slate-400">
-                        <li class="flex gap-3">
-                            <span class="w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-[10px] font-bold flex items-center justify-center flex-shrink-0">1</span>
-                            Move the compass around the magnet to observe field direction.
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-[10px] font-bold flex items-center justify-center flex-shrink-0">2</span>
-                            Observe magnetic field lines inside the bar magnet.
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="w-5 h-5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 text-[10px] font-bold flex items-center justify-center flex-shrink-0">3</span>
-                            Toggle "Planet Earth" mode to see real-world compass behavior.
-                        </li>
+            <!-- Right Column: Lab Tasks & Notepad (3 cols) -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- Virtual Notepad -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-[32px] shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-sm uppercase tracking-wider">Lab Notepad</h3>
+                        <span id="note-saved" class="text-[9px] text-emerald-500 font-bold opacity-0">AUTO-SAVED</span>
+                    </div>
+                    <textarea id="lab-notes" placeholder="Write your observations here..." class="w-full h-48 bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 text-xs outline-none border border-transparent focus:border-primary/30 transition-all resize-none"></textarea>
+                    <p class="mt-2 text-[9px] text-slate-400">Notes are saved automatically in your current browser.</p>
+                </div>
+
+                <!-- Learning Outcome -->
+                <div class="bg-gradient-to-br from-primary to-blue-700 p-6 rounded-[32px] text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute -bottom-4 -right-4 opacity-10 text-6xl">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="font-bold text-sm mb-3">Today's Goal</h3>
+                    <ul class="text-[11px] space-y-2 opacity-90">
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-blue-300"></i> Understand Field Interaction</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-blue-300"></i> Map Flux Density</li>
+                        <li class="flex gap-2"><i class="fas fa-check-circle text-blue-300"></i> Identify Polarity</li>
                     </ul>
                 </div>
-
-                <div class="bg-slate-900 dark:bg-black p-6 rounded-[32px] text-white border border-white/5 shadow-xl">
-                    <h3 class="font-bold mb-3 flex items-center gap-2 text-sm uppercase tracking-wider">
-                        <i class="fas fa-lightbulb text-amber-400"></i> Pro Tip
-                    </h3>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        The compass needle's red end always points towards the Magnetic North. Change magnet strength to see how field intensity varies!
-                    </p>
-                </div>
-
-                <a href="contact.html" class="block w-full text-center py-4 bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-400 rounded-2xl font-bold text-sm hover:bg-primary hover:text-white transition-all shadow-sm">
-                    Request Lab Manual
-                </a>
             </div>
+
         </div>
     </main>
 
-    <!-- Simple Footer -->
-    <footer class="py-8 text-center border-t border-slate-100 dark:border-slate-800">
-        <p class="text-xs text-slate-400 dark:text-slate-500 font-medium uppercase tracking-widest">© 2026 Learnix — Developed by Sayyed Aarif Hussain</p>
+    <footer class="py-12 text-center border-t border-slate-100 dark:border-slate-800">
+        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.4em]">Learnix Hub x PhET Global Education</p>
     </footer>
 
     <script>
-        // Theme Toggle Logic
+        const simUrls = {
+            magnet: "https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass_all.html",
+            circuit: "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab_all.html",
+            faraday: "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law_all.html",
+            balloons: "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_all.html"
+        };
+
+        function switchSim(key) {
+            const loader = document.getElementById('lab-loader');
+            const iframe = document.getElementById('lab-frame');
+            
+            // UI Update
+            document.querySelectorAll('.sim-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('btn-' + key).classList.add('active');
+
+            // Iframe Update
+            loader.style.display = 'flex';
+            loader.style.opacity = '1';
+            iframe.src = simUrls[key];
+
+            iframe.onload = () => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            };
+        }
+
+        function reloadSim() {
+            document.getElementById('lab-frame').contentWindow.location.reload();
+        }
+
+        function toggleFullscreen() {
+            const vp = document.getElementById('viewport-container');
+            if (!document.fullscreenElement) {
+                vp.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Notepad Persistence
+        const notesArea = document.getElementById('lab-notes');
+        const savedLabel = document.getElementById('note-saved');
+
+        // Load saved notes
+        notesArea.value = localStorage.getItem('learnix_lab_notes') || "";
+
+        // Save on typing
+        notesArea.addEventListener('input', () => {
+            localStorage.setItem('learnix_lab_notes', notesArea.value);
+            savedLabel.classList.remove('opacity-0');
+            // Hide after a second
+            setTimeout(() => savedLabel.classList.add('opacity-0'), 1500);
+        });
+
+        // Theme Toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Load saved theme
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
-        } else {
-            html.classList.remove('dark');
         }
 
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         });
+
+        // Handle iframe internal reset visual
+        document.getElementById('lab-frame').onload = () => {
+            document.getElementById('lab-loader').style.opacity = '0';
+            setTimeout(() => { document.getElementById('lab-loader').style.display = 'none'; }, 500);
+        };
     </script>
 </body>
 </html>
