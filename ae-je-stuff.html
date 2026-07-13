@@ -73,27 +73,13 @@
             transform: translateY(-2px);
         }
 
-        /* Toast notification animation */
-        #toast-notification {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen">
 
-    <!-- Toast Notification -->
-    <div id="toast-notification" class="fixed top-24 right-4 z-[110] bg-emerald-500 text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 translate-x-96 opacity-0 pointer-events-none">
-        <i class="fas fa-check-circle text-lg"></i>
-        <div>
-            <p class="font-bold text-xs uppercase tracking-wider">Download Started</p>
-            <p class="text-[10px] opacity-90" id="toast-text">Preparing files...</p>
-        </div>
-    </div>
-
-    <!-- Top Navigation Bar (Theme toggler setup hai) -->
+    <!-- Top Navigation Bar -->
     <nav class="fixed top-0 w-full z-50 glass-nav px-4 md:px-12 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
             <div class="bg-primary p-2 rounded-xl shadow-lg">
@@ -110,7 +96,7 @@
     <!-- Main Workspace -->
     <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
         
-        <!-- Centered Breadcrumbs (Simple & Clean) -->
+        <!-- Centered Breadcrumbs -->
         <nav class="flex items-center justify-center text-[10px] text-slate-400 dark:text-slate-500 gap-3 mb-8 font-bold uppercase tracking-widest">
             <a href="index.html" class="hover:text-primary transition-colors">Home</a>
             <i class="fas fa-circle text-[4px] opacity-30"></i>
@@ -139,9 +125,10 @@
                         <h3 class="text-xl font-bold mb-3">Civil Engineering</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Structural analysis, Geotechnical mechanics, Concrete, Surveying notes, and mock questionnaires.</p>
                     </div>
-                    <button onclick="coming-soon.html" class="btn-animated w-full py-4 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="coming-soon.html"></i> Download Study Pack
-                    </button>
+                    <!-- Direct redirect link: Replace "civil.html" with your Google Drive / Mega link if needed -->
+                    <a href="civil.html" class="btn-animated w-full py-4 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Access Study Pack
+                    </a>
                 </div>
 
                 <!-- Branch 2: Mechanical Engineering (Second) -->
@@ -153,9 +140,10 @@
                         <h3 class="text-xl font-bold mb-3">Mechanical Engineering</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Thermodynamics, IC Engines, Fluid mechanics, Strength of materials study guides and PYQs.</p>
                     </div>
-                    <button onclick="coming-soon.html" class="btn-animated w-full py-4 bg-orange-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fas fa-cloud-download-alt"></i> Download Study Pack
-                    </button>
+                    <!-- Direct redirect link: Replace "elements-mechanical.html" with your study material link -->
+                    <a href="elements-mechanical.html" class="btn-animated w-full py-4 bg-orange-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Access Study Pack
+                    </a>
                 </div>
 
                 <!-- Branch 3: Electrical Engineering -->
@@ -167,9 +155,10 @@
                         <h3 class="text-xl font-bold mb-3">Electrical Engineering</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">AC/DC machines, Power systems, Control circuitry, and fundamental electrical equations.</p>
                     </div>
-                    <button onclick="coming-soon.html" class="btn-animated w-full py-4 bg-yellow-500 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fas fa-cloud-download-alt"></i> Download Study Pack
-                    </button>
+                    <!-- Direct redirect link: Replace "basic-electrical.html" with your study material link -->
+                    <a href="basic-electrical.html" class="btn-animated w-full py-4 bg-yellow-500 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Access Study Pack
+                    </a>
                 </div>
 
                 <!-- Branch 4: Electronics & Communication -->
@@ -181,9 +170,10 @@
                         <h3 class="text-xl font-bold mb-3">Electronics Engineering</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Digital circuitry, Microprocessor architectures, signals and communication networks study files.</p>
                     </div>
-                    <button onclick="coming-soon.html" class="btn-animated w-full py-4 bg-purple-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fas fa-cloud-download-alt"></i> Download Study Pack
-                    </button>
+                    <!-- Direct redirect link: Replace "#" with your study material link -->
+                    <a href="#" class="btn-animated w-full py-4 bg-purple-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Access Study Pack
+                    </a>
                 </div>
 
                 <!-- Branch 5: Computer Science -->
@@ -195,9 +185,10 @@
                         <h3 class="text-xl font-bold mb-3">Computer Science / IT</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Data structures, Algorithms, Networking, Database management, and basic programming syllabus notes.</p>
                     </div>
-                    <button onclick="coming-soon.html" class="btn-animated w-full py-4 bg-emerald-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fas fa-cloud-download-alt"></i> Download Study Pack
-                    </button>
+                    <!-- Direct redirect link: Replace "#" with your study material link -->
+                    <a href="#" class="btn-animated w-full py-4 bg-emerald-600 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Access Study Pack
+                    </a>
                 </div>
             </div>
         </section>
@@ -260,53 +251,6 @@
                 nav.classList.remove('shadow-lg');
             }
         });
-
-        // Dynamic Download Logic using Blob synthesis (No backend required)
-        function downloadPack(branchName) {
-            // Display toast notification
-            const toast = document.getElementById('toast-notification');
-            const toastText = document.getElementById('toast-text');
-            toastText.innerText = `Generating ${branchName} Technical Package...`;
-            
-            toast.classList.remove('translate-x-96', 'opacity-0', 'pointer-events-none');
-            
-            setTimeout(() => {
-                // Generate Dynamic Content
-                const content = `==================================================\n` +
-                                `   LEARNIX PREMIUM EXAM HUB - ${branchName.toUpperCase()} STUDY PACK\n` +
-                                `   Syllabus Target: SSC JE, RRB JE, State AE/JE Exams\n` +
-                                `==================================================\n\n` +
-                                `[✓] Comprehensive Technical Notes\n` +
-                                `[✓] Curated High-Yield Formula Bookmarks\n` +
-                                `[✓] Scanned & Solved PYQs (2018 - 2025)\n\n` +
-                                `--------------------------------------------------\n` +
-                                `HOW TO PREPARE:\n` +
-                                `1. First complete the structural derivations inside Learnix.\n` +
-                                `2. Use our interactive calculators to verify numerical steps.\n` +
-                                `3. Regularly revise standard structural codebooks (e.g. BIS/IS).\n\n` +
-                                `Learn more at Learnix Platform.\n` +
-                                `Designed by Sayyed Aarif Hussain © 2026`;
-
-                const blob = new Blob([content], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const downloadLink = document.createElement('a');
-                downloadLink.href = url;
-                downloadLink.download = `Learnix_${branchName}_AE_JE_Study_Pack.txt`;
-                
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                URL.revokeObjectURL(url);
-
-                // Update toast status to completed
-                toastText.innerText = `${branchName}_Study_Pack.txt saved successfully!`;
-                
-                // Hide toast after short delay
-                setTimeout(() => {
-                    toast.classList.add('translate-x-96', 'opacity-0', 'pointer-events-none');
-                }, 2000);
-            }, 800);
-        }
     </script>
 </body>
 </html>
