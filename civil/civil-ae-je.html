@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Civil Engineering Study Pack | Learnix</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#4f46e5',
+                        accent: '#06b6d4',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphic Navigation */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Modern Card Elevations */
+        .card-elevated {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-elevated:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -15px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Smooth Sliding Drawer */
+        .drawer-transition {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animated Buttons */
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-animated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        .btn-animated:hover::before {
+            left: 100%;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 glass-nav px-4 md:px-12 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-2">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="bg-primary p-2 rounded-xl shadow-lg">
+                    <i class="fas fa-drafting-compass text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-black text-primary tracking-tighter uppercase">Learnix Hub</span>
+            </a>
+        </div>
+        <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 border border-slate-200 dark:border-slate-700 hover:scale-110 transition-all">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
+        
+        <!-- Centered Breadcrumbs -->
+        <nav class="flex items-center justify-center text-[10px] text-slate-400 dark:text-slate-500 gap-3 mb-8 font-bold uppercase tracking-widest">
+            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+            <i class="fas fa-circle text-[4px] opacity-30"></i>
+            <a href="civil-hub.html" class="hover:text-primary transition-colors">AE/JE Exam Hub</a>
+            <i class="fas fa-circle text-[4px] opacity-30"></i>
+            <span class="text-slate-600 dark:text-slate-300">Civil Study Pack</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="text-center mb-16 space-y-3">
+            <span class="px-4 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-400 rounded-full text-[11px] font-black uppercase tracking-wider inline-block border border-blue-100 dark:border-blue-800">
+                Exclusive Civil Repository
+            </span>
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Civil Engineering <span class="text-primary italic">Study Pack</span></h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-xs md:text-sm">
+                Unlock hand-picked technical notes, previous years solved questions, and essential IS Codes tailored strictly for AE/JE preparation.
+            </p>
+        </div>
+
+        <!-- Master All-In-One Civil Study Pack Section (Added right above Soil Mechanics) -->
+        <div class="mb-12 p-8 bg-gradient-to-r from-primary via-secondary to-accent text-white rounded-[40px] shadow-xl relative overflow-hidden card-elevated">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                <i class="fas fa-cubes"></i>
+            </div>
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="space-y-3 text-center md:text-left">
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase tracking-wider">Mega Prep Bundle</span>
+                    <h2 class="text-2xl md:text-3xl font-black">All-In-One Civil Study Pack</h2>
+                    <p class="text-xs md:text-sm text-blue-100 max-w-xl">
+                        Get the ultimate integrated preparation bundle containing formula sheets, hand-written notes, mock questions, and standard guides for ALL civil engineering subjects combined.
+                    </p>
+                </div>
+                <a href="civil-hub.html" class="btn-animated px-8 py-4 bg-white text-primary rounded-2xl font-bold text-xs uppercase tracking-widest whitespace-nowrap shadow-lg flex items-center gap-2">
+                    <i class="fas fa-external-link-alt"></i> Access Master Bundle
+                </a>
+            </div>
+        </div>
+
+        <!-- Subject Wise Resources Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            
+            <!-- Soil Mechanics & Foundations -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: High</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Soil Mechanics & Foundations</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Void relationships, classification, shear strength, permeability, and pile foundation basics.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('soil')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <!-- Link downloadable structure -->
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Concrete Technology & Building Materials -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: High</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Concrete & Materials</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Cement composition, properties of aggregates, workability tests, concrete grade designs, and bricks.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('materials')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Theory of Structures / Strength of Materials -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-rose-50 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: Medium</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Structural Mechanics</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Shear force and bending moment diagrams, thin cylinders, deflection of beams, torsion, and columns.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('mechanics')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Surveying & Geomatics -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-amber-50 dark:bg-amber-900/30 text-amber-500 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-amber-500 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: Medium</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Surveying & Leveling</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Compass survey corrections, height of instrument method, leveling, contours, and modern GIS/GPS basics.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('surveying')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hydraulics & Fluid Mechanics -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-purple-600 bg-purple-50 dark:bg-purple-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: High</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Hydraulics & Fluid Flow</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Fluid statics, Bernoulli's equation applications, pipe friction losses, open channel flow, and hydraulic machines.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('fluid')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Environmental Engineering -->
+            <div class="card-elevated bg-white dark:bg-slate-800 p-8 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-teal-50 dark:bg-teal-900/30 text-teal-600 rounded-2xl flex items-center justify-center text-2xl">
+                            <i class="fas fa-hand-holding-water"></i>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-teal-600 bg-teal-50 dark:bg-teal-950/40 px-3 py-1 rounded-full uppercase tracking-wider">Weightage: Low</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Environmental Eng.</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">Water treatment standards, design of sewers, wastewater purification processes, and solid waste handling.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="openStudyNote('environmental')" class="w-full py-3 bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white text-slate-700 dark:text-slate-200 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all">Read Summary</button>
+                    <a href="#" class="btn-animated w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Indian Standard (IS) Code Reference Shelf -->
+        <section class="py-16 bg-slate-900 text-white rounded-[50px] shadow-xl border border-white/5 p-8 md:p-12 mb-20">
+            <div class="max-w-2xl mx-auto text-center mb-12">
+                <span class="text-[9px] font-black tracking-widest text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full uppercase">Code Bureau</span>
+                <h2 class="text-2xl md:text-3xl font-black mt-3 mb-2">Essential Bureau of Indian Standards (BIS) Codes</h2>
+                <p class="text-slate-400 text-xs">Direct reference and parameters tested extensively in every State JE/AE and Central Paper II.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- IS 456 -->
+                <div class="p-6 bg-white/5 border border-white/10 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm text-primary mb-1">IS 456 : 2000</h4>
+                        <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">Code of Practice for Plain and Reinforced Concrete structural guidelines.</p>
+                    </div>
+                    <a href="https://bis.gov.in/" target="_blank" class="w-full py-2 bg-white/5 hover:bg-primary rounded-xl text-center text-[10px] font-bold uppercase transition-all tracking-wider">Official Access</a>
+                </div>
+                <!-- IS 800 -->
+                <div class="p-6 bg-white/5 border border-white/10 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm text-primary mb-1">IS 800 : 2007</h4>
+                        <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">General Construction in Steel (Limit State Design parameters).</p>
+                    </div>
+                    <a href="https://bis.gov.in/" target="_blank" class="w-full py-2 bg-white/5 hover:bg-primary rounded-xl text-center text-[10px] font-bold uppercase transition-all tracking-wider">Official Access</a>
+                </div>
+                <!-- IS 875 -->
+                <div class="p-6 bg-white/5 border border-white/10 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm text-primary mb-1">IS 875 (Part 1-5)</h4>
+                        <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">Design loads (Dead loads, Live loads, Wind loads) on structures.</p>
+                    <a href="https://bis.gov.in/" target="_blank" class="w-full py-2 bg-white/5 hover:bg-primary rounded-xl text-center text-[10px] font-bold uppercase transition-all tracking-wider">Official Access</a>
+                </div>
+                <!-- IS 1893 -->
+                <div class="p-6 bg-white/5 border border-white/10 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-sm text-primary mb-1">IS 1893 : 2016</h4>
+                        <p class="text-[10px] text-slate-400 mb-4 leading-relaxed">Criteria for Earthquake Resistant Design of Structures.</p>
+                    </div>
+                    <a href="https://bis.gov.in/" target="_blank" class="w-full py-2 bg-white/5 hover:bg-primary rounded-xl text-center text-[10px] font-bold uppercase transition-all tracking-wider">Official Access</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preparation Checklist -->
+        <section class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-8 md:p-12 rounded-[40px] border border-slate-100 dark:border-slate-700 shadow-sm">
+            <h2 class="text-2xl font-black text-center mb-8"><i class="fas fa-check-double text-primary mr-2"></i> Track Your Progress</h2>
+            <p class="text-xs text-slate-400 text-center mb-8">Click and select the subjects you have mastered. Your progress persists in real-time.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="checklist-container">
+                <label class="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl cursor-pointer">
+                    <input type="checkbox" id="chk-soil" onchange="updateProgress()" class="w-5 h-5 accent-primary rounded">
+                    <span class="text-xs font-bold">Soil Mechanics Mastered</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl cursor-pointer">
+                    <input type="checkbox" id="chk-concrete" onchange="updateProgress()" class="w-5 h-5 accent-primary rounded">
+                    <span class="text-xs font-bold">Concrete & Materials Done</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl cursor-pointer">
+                    <input type="checkbox" id="chk-mechanics" onchange="updateProgress()" class="w-5 h-5 accent-primary rounded">
+                    <span class="text-xs font-bold">Structural Mechanics Prepared</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl cursor-pointer">
+                    <input type="checkbox" id="chk-survey" onchange="updateProgress()" class="w-5 h-5 accent-primary rounded">
+                    <span class="text-xs font-bold">Surveying & Leveling Finished</span>
+                </label>
+            </div>
+
+            <!-- Progress tracker bar -->
+            <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700 space-y-2">
+                <div class="flex justify-between font-bold text-xs">
+                    <span>Syllabus Completed</span>
+                    <span id="progress-percentage" class="text-primary">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-700 h-3 rounded-full overflow-hidden">
+                    <div id="progress-bar-fill" class="bg-primary h-full transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Glassmorphic Side Drawer for Summary Notes -->
+    <div id="notes-drawer" class="fixed top-0 right-0 h-full w-full max-w-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-2xl border-l border-slate-100 dark:border-slate-800 z-[120] translate-x-full drawer-transition overflow-y-auto">
+        <div class="p-8 space-y-8">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                <h3 id="drawer-title" class="text-2xl font-black text-primary">Summary Note</h3>
+                <button onclick="closeNotesDrawer()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-red-500 transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Summary Note content will dynamically load here -->
+            <div id="drawer-content" class="space-y-6 text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                <!-- Fallback loading -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Area -->
+    <footer class="py-12 border-t border-slate-100 dark:border-slate-800 text-center space-y-4">
+        <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">Learnix Technical Exam Hub</p>
+        <p class="text-[9px] text-slate-400 font-bold opacity-60">© 2026 LEARNIX — DESIGNED BY SAYYED AARIF HUSSAIN</p>
+    </footer>
+
+    <!-- Interactive Logic Scripts -->
+    <script>
+        // Note Summary Databank (English + Roman Hindi mix)
+        const summaryNotes = {
+            soil: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Soil Mechanics Formulation Shelf</h4>
+                    <p><b>English:</b> Effective stress (σ') plays the key role in governing the shear strength and consolidation of soil. It is calculated by subtracting Pore Water Pressure (u) from Total Stress (σ).</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• Effective Stress: σ' = σ - u</p>
+                        <p>• Soil Porosity: n = e / (1 + e)</p>
+                        <p>• Bulk Unit Weight: γ = (G + Se) * γw / (1 + e)</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> Void ratio (e) hamesha dry soil aur saturated state main calculation ko change kar sakta hai. Se = wG formula pe numeric hamesha clear karein.</p>
+                </div>
+            `,
+            materials: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Cement & Concrete Materials Codebook</h4>
+                    <p><b>English:</b> Tricalcium Silicate (C3S) provides rapid early-age strength, whereas Dicalcium Silicate (C2S) contributes to late-age ultimate strength.</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• OPC Grade 33, 43, 53 are classified per 28-day strengths.</p>
+                        <p>• Standard M25 Mix Ratio: 1 : 1 : 2</p>
+                        <p>• Slump for RCC Beams: 50 - 100 mm</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> Slump tests concrete ki consistency and flow accuracy test karte hain. M20 aur M25 standard ratio state examinations me pucha jata hai.</p>
+                </div>
+            `,
+            mechanics: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Structural Mechanics & SOM Theorems</h4>
+                    <p><b>English:</b> Deflection of a cantilever beam under a point load at the free end is proportional to L³ over 3EI.</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• Max Bending Moment (UDL Cantilever): wL²/2</p>
+                        <p>• Moment of Inertia (Circular Section): π * D⁴ / 64</p>
+                        <p>• Shear Stress (Rectangular Beam): Max = 1.5 * Average</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> Simply supported beams and Cantilever deflection equations, values standard tables se revise karna important hai.</p>
+                </div>
+            `,
+            surveying: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Surveying Engineering Handbook</h4>
+                    <p><b>English:</b> Local Attraction occurs due to magnetic metals nearby. The difference between Fore Bearing and Back Bearing must be exactly 180°.</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• Back Bearing (BB) = Fore Bearing (FB) ± 180°</p>
+                        <p>• Refraction Correction: Cr = 0.0112 * d²</p>
+                        <p>• Correction due to Earth's Curvature: Cc = -0.0785 * d²</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> True Bearing conversion or Declination numericals (East and West variation offsets) calculations accurate karein.</p>
+                </div>
+            `,
+            fluid: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Hydraulics & Pressure Dynamics</h4>
+                    <p><b>English:</b> Darcy-Weisbach head loss is vital for understanding friction within pipe flow networks.</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• Reynolds Number: Re = ρvD / μ</p>
+                        <p>• Laminar flow friction factor: f = 64 / Re</p>
+                        <p>• Continuity Equation: A1*V1 = A2*V2</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> Fluid flow equations main laminar or turbulent state transitions ko parameter numbers identify karte hain.</p>
+                </div>
+            `,
+            environmental: `
+                <div class="space-y-4">
+                    <h4 class="font-extrabold text-sm uppercase text-slate-800 dark:text-slate-200">Environmental Sanitation & Purification</h4>
+                    <p><b>English:</b> Biochemical Oxygen Demand (BOD) determines the concentration of organic matter biodegradable within wastewater.</p>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl font-mono text-[11px] space-y-1">
+                        <p>• Standard BOD measurement timeline: 5 Days at 20°C</p>
+                        <p>• Maximum Permissible Fluoride in Drinking Water: 1.5 mg/L</p>
+                        <p>• Hardness Limit: 200 - 600 ppm</p>
+                    </div>
+                    <p class="italic text-primary"><b>Roman Hindi:</b> Standard water indicators standards or parameters (Chlorine dose, turbidity limits) structural test paper requirements main match hote hain.</p>
+                </div>
+            `
+        };
+
+        // Theme Toggle Setup
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Toggle Drawer Control
+        function openStudyNote(key) {
+            const drawer = document.getElementById('notes-drawer');
+            const drawerTitle = document.getElementById('drawer-title');
+            const drawerContent = document.getElementById('drawer-content');
+
+            // Set content mapped by key
+            drawerContent.innerHTML = summaryNotes[key] || "<p>Notes under development.</p>";
+            
+            // Format Title
+            const titleMap = {
+                soil: "Soil Mechanics Summary",
+                materials: "Materials & Concrete Summary",
+                mechanics: "Structural Mechanics Summary",
+                surveying: "Surveying & Leveling Summary",
+                fluid: "Hydraulics Summary",
+                environmental: "Environmental Engineering Summary"
+            };
+            drawerTitle.innerText = titleMap[key] || "Study Summary";
+
+            // Open with animation
+            drawer.classList.remove('translate-x-full');
+        }
+
+        function closeNotesDrawer() {
+            document.getElementById('notes-drawer').classList.add('translate-x-full');
+        }
+
+        // Checklist State Persistence and Progress Bar
+        const checklists = ['chk-soil', 'chk-concrete', 'chk-mechanics', 'chk-survey'];
+        
+        window.addEventListener('load', () => {
+            checklists.forEach(id => {
+                const stored = localStorage.getItem(id) === 'true';
+                document.getElementById(id).checked = stored;
+            });
+            updateProgress();
+        });
+
+        function updateProgress() {
+            let checkedCount = 0;
+            checklists.forEach(id => {
+                const isChecked = document.getElementById(id).checked;
+                localStorage.setItem(id, isChecked);
+                if(isChecked) checkedCount++;
+            });
+
+            const percentage = Math.round((checkedCount / checklists.length) * 100);
+            document.getElementById('progress-percentage').innerText = percentage + '%';
+            document.getElementById('progress-bar-fill').style.width = percentage + '%';
+        }
+    </script>
+</body>
+</html>
